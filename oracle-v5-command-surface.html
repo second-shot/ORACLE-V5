@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oracle v5 — Command Surface</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0f;
+      color: #e2e2e8;
+      font-family: 'Courier New', Courier, monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #5a5a72;
+    }
+
+    header .version {
+      font-size: 0.6rem;
+      color: #33334a;
+      margin-top: 0.25rem;
+      letter-spacing: 0.15em;
+    }
+
+    .command-surface {
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    #raw-input {
+      flex: 1;
+      background: #12121c;
+      border: 1px solid #2a2a3d;
+      color: #e2e2e8;
+      font-family: inherit;
+      font-size: 0.875rem;
+      padding: 0.65rem 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+      border-radius: 2px;
+    }
+
+    #raw-input::placeholder { color: #3a3a55; }
+    #raw-input:focus { border-color: #5a5af0; }
+
+    #submit-btn {
+      background: #1e1e36;
+      border: 1px solid #2a2a3d;
+      color: #8080c0;
+      font-family: inherit;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      padding: 0.65rem 1.2rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    #submit-btn:hover {
+      background: #2a2a50;
+      color: #a0a0ff;
+      border-color: #5a5af0;
+    }
+
+    #submit-btn:active { background: #5a5af0; color: #fff; }
+
+    .preview-block {
+      margin-top: 1.5rem;
+      background: #0e0e18;
+      border: 1px solid #1e1e30;
+      border-radius: 2px;
+      padding: 1.2rem 1.2rem 1rem;
+      display: none;
+    }
+
+    .preview-block.visible { display: block; }
+
+    .preview-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #33334a;
+      margin-bottom: 0.75rem;
+    }
+
+    .obj-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: baseline;
+      margin-bottom: 0.45rem;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .obj-row:last-child { margin-bottom: 0; }
+
+    .obj-key {
+      color: #5a5af0;
+      min-width: 6.5rem;
+      flex-shrink: 0;
+    }
+
+    .obj-sep { color: #33334a; }
+
+    .obj-val { color: #c8c8e8; word-break: break-all; }
+
+    .obj-val.tag {
+      background: #1a1a30;
+      border: 1px solid #2a2a48;
+      border-radius: 2px;
+      padding: 0.05rem 0.4rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+    }
+
+    .tag-type    { color: #80c0ff; border-color: #1e3a5a; background: #0d1c2e; }
+    .tag-status  { color: #80ffb0; border-color: #1e4a30; background: #0d2018; }
+    .tag-archive { color: #ffc080; border-color: #4a3010; background: #201508; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Oracle v5 &mdash; Command Surface</h1>
+    <div class="version">shell · input layer · v5.0</div>
+  </header>
+
+  <div class="command-surface">
+    <div class="input-row">
+      <input
+        id="raw-input"
+        type="text"
+        placeholder="enter raw command…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button id="submit-btn">Submit</button>
+    </div>
+
+    <div id="preview" class="preview-block">
+      <div class="preview-label">Structured Object</div>
+
+      <div class="obj-row">
+        <span class="obj-key">raw</span>
+        <span class="obj-sep">:</span>
+        <span class="obj-val" id="out-raw">—</span>
+      </div>
+
+      <div class="obj-row">
+        <span class="obj-key">type</span>
+        <span class="obj-sep">:</span>
+        <span class="obj-val"><span id="out-type" class="tag tag-type">—</span></span>
+      </div>
+
+      <div class="obj-row">
+        <span class="obj-key">status</span>
+        <span class="obj-sep">:</span>
+        <span class="obj-val"><span id="out-status" class="tag tag-status">—</span></span>
+      </div>
+
+      <div class="obj-row">
+        <span class="obj-key">archiveLayer</span>
+        <span class="obj-sep">:</span>
+        <span class="obj-val"><span id="out-archive" class="tag tag-archive">—</span></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Mapping rules ────────────────────────────────────────────────────────
+
+    const TYPE_PATTERNS = [
+      { re: /\b(query|search|find|lookup|get|fetch|retrieve)\b/i,   value: 'query'    },
+      { re: /\b(create|add|insert|new|make|build|generate)\b/i,     value: 'create'   },
+      { re: /\b(update|edit|modify|change|patch|set)\b/i,           value: 'update'   },
+      { re: /\b(delete|remove|destroy|drop|purge|clear)\b/i,        value: 'delete'   },
+      { re: /\b(archive|store|save|preserve|commit|lock)\b/i,       value: 'archive'  },
+      { re: /\b(sync|merge|push|pull|replicate)\b/i,                value: 'sync'     },
+      { re: /\b(status|state|health|ping|check|inspect)\b/i,        value: 'inspect'  },
+    ];
+
+    const STATUS_PATTERNS = [
+      { re: /\b(done|complete|finished|success|ok|ready)\b/i,       value: 'resolved'  },
+      { re: /\b(pending|waiting|queued|hold|defer)\b/i,             value: 'pending'   },
+      { re: /\b(active|running|live|open|ongoing|processing)\b/i,   value: 'active'    },
+      { re: /\b(error|fail|broken|invalid|bad|corrupt)\b/i,         value: 'error'     },
+      { re: /\b(draft|wip|partial|incomplete|progress)\b/i,         value: 'draft'     },
+      { re: /\b(cancel|abort|stop|halt|kill|revoke)\b/i,            value: 'cancelled' },
+    ];
+
+    const ARCHIVE_PATTERNS = [
+      { re: /\b(cold|deep|long.?term|permanent|offline|slow)\b/i,   value: 'cold'     },
+      { re: /\b(warm|recent|near.?line|cache|buffer)\b/i,           value: 'warm'     },
+      { re: /\b(hot|live|real.?time|instant|fast|mem)\b/i,          value: 'hot'      },
+      { re: /\b(void|null|purge|wipe|erase|delete)\b/i,             value: 'void'     },
+    ];
+
+    function classify(patterns, text, fallback) {
+      for (const p of patterns) {
+        if (p.re.test(text)) return p.value;
+      }
+      return fallback;
+    }
+
+    function mapInput(raw) {
+      return {
+        raw,
+        type:         classify(TYPE_PATTERNS,    raw, 'unknown'),
+        status:       classify(STATUS_PATTERNS,   raw, 'unresolved'),
+        archiveLayer: classify(ARCHIVE_PATTERNS,  raw, 'warm'),
+      };
+    }
+
+    // ── DOM wiring ───────────────────────────────────────────────────────────
+
+    const inputEl  = document.getElementById('raw-input');
+    const btnEl    = document.getElementById('submit-btn');
+    const preview  = document.getElementById('preview');
+    const outRaw   = document.getElementById('out-raw');
+    const outType  = document.getElementById('out-type');
+    const outStat  = document.getElementById('out-status');
+    const outArch  = document.getElementById('out-archive');
+
+    function render() {
+      const raw = inputEl.value.trim();
+      if (!raw) return;
+
+      const obj = mapInput(raw);
+      outRaw.textContent  = obj.raw;
+      outType.textContent = obj.type;
+      outStat.textContent = obj.status;
+      outArch.textContent = obj.archiveLayer;
+      preview.classList.add('visible');
+    }
+
+    btnEl.addEventListener('click', render);
+    inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') render(); });
+  </script>
+
+</body>
+</html>

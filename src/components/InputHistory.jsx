@@ -36,8 +36,8 @@ export function InputHistory({ history, onSelect }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            {history.map((entry, i) => (
-              <li key={i} className="input-history__item">
+            {history.map((entry) => (
+              <li key={entry} className="input-history__item">
                 <button
                   className="input-history__entry"
                   onClick={() => {

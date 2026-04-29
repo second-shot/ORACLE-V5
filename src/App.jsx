@@ -24,7 +24,7 @@ export default function App() {
     }
   }, [input]);
 
-  function submit(raw) {
+  function submitInput(raw) {
     if (!raw) return;
 
     const { object, archiveWriter } = runOraclePipeline(raw);
@@ -42,7 +42,7 @@ export default function App() {
     e.preventDefault();
     const raw = input.trim();
     if (!raw) return;
-    submit(raw);
+    submitInput(raw);
     setInput("");
   }
 
@@ -85,7 +85,7 @@ export default function App() {
             Run
           </button>
         </form>
-        <InputHistory history={history} onSelect={submit} />
+        <InputHistory history={history} onSelect={submitInput} />
       </section>
 
       <section className="oracle-output-zone" aria-live="polite" aria-label="Oracle outputs">

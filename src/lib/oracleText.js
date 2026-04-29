@@ -87,20 +87,34 @@ function extractSignals(text) {
       "asap",
       "now",
     ]),
-    lowClarity:
-      text.trim().split(/\s+/).length < 4 ||
-      includesAny(lower, [
-        "help",
-        "thoughts",
-        "maybe",
-        "not sure",
-        "something",
-        "can't decide",
-        "cannot decide",
-        "don't know",
-        "do not know",
-        "unsure",
-      ]),
+    // lowClarity: true when the input is too vague to route without guessing.
+    // Exception: specific item-type words (bike, jewellery, iphone, etc.) anchor
+    // the intent even in short inputs, so we suppress lowClarity for those.
+    lowClarity: (() => {
+      const hasItemAnchor = includesAny(lower, [
+        "bike", "bicycle", "jewellery", "jewelry", "ring", "necklace",
+        "bracelet", "earring", "watch", "iphone", "phone", "laptop",
+        "ipad", "tablet", "console", "camera", "clothes", "clothing",
+        "jacket", "coat", "jeans", "shirt", "dress", "art", "print",
+        "painting", "electronics", "tech",
+      ]);
+      if (hasItemAnchor) return false;
+      return (
+        text.trim().split(/\s+/).length < 4 ||
+        includesAny(lower, [
+          "help",
+          "thoughts",
+          "maybe",
+          "not sure",
+          "something",
+          "can't decide",
+          "cannot decide",
+          "don't know",
+          "do not know",
+          "unsure",
+        ])
+      );
+    })(),
   };
 }
 
@@ -348,6 +362,14 @@ function buildReason(object) {
 }
 
 export function buildOutput(object) {
+  const { intent } = object.classification;
+  const { routeState } = object.route;
+
+  // Pricing branch: resale + execute
+  if (intent === "resale" && routeState === "execute") {
+    return buildPricingOutput(object);
+  }
+
   return {
     kind: "oracle-decision",
     title: `${object.classification.intent} · ${object.route.routeState}`,
@@ -355,5 +377,171 @@ export function buildOutput(object) {
     decision: buildDecision(object),
     nextAction: buildNextAction(object),
     reason: buildReason(object),
+  };
+}
+
+// ── Pricing Output Branch ──────────────────────────────────────────────────
+// Fires when: intent === "resale" AND routeState === "execute"
+// Every field ties to a detected signal. No generic templates.
+// Price range is omitted when no item-type signal is present — the system
+// instructs how to derive it rather than inventing a number.
+
+const PRICING_MATRIX = {
+  bike: {
+    primary: "Facebook Marketplace",
+    secondary: "eBay",
+    secondaryTrigger: "no enquiry in 48 hours",
+    speed: "24–72 hours",
+    effort: "Low",
+    priceNote: "Search Facebook Marketplace for the same model locally. Undercut by 10–15%.",
+    floor: "Accept any firm offer above scrap value if deadline is hard.",
+    prep: [
+      "Clean the bike thoroughly.",
+      "Photograph outdoors — both sides, close-up of any damage.",
+      "Include make, model, frame size, and condition in the title.",
+    ],
+  },
+  jewellery: {
+    primary: "eBay",
+    secondary: "Depop",
+    secondaryTrigger: "no sale in 5 days",
+    speed: "3–7 days",
+    effort: "Medium",
+    priceNote: "Search eBay sold listings for comparable pieces. Price at the lower end of recent sales.",
+    floor: "Set floor at 60% of your target price.",
+    prep: [
+      "Clean each piece.",
+      "Photograph on a neutral background with close-ups of hallmarks or damage.",
+      "Include metal type, weight if known, and any certificates.",
+    ],
+  },
+  "clothing-volume": {
+    primary: "Vinted",
+    secondary: "Facebook Marketplace",
+    secondaryTrigger: "no sale in 5 days",
+    speed: "2–5 days per item",
+    effort: "High — time cost of listing volume",
+    priceNote: "Price 10–20% below similar listed items on Vinted. Bundle where possible.",
+    floor: "Accept bundle offers that clear multiple items at once.",
+    prep: [
+      "Photograph each item flat or on a hanger in natural light.",
+      "Note brand, size, condition, and any flaws honestly.",
+      "List in batches of 5 — do not try to list everything at once.",
+    ],
+  },
+  "clothing-premium": {
+    primary: "Depop",
+    secondary: "Grailed",
+    secondaryTrigger: "no sale in 7 days",
+    speed: "5–14 days",
+    effort: "Medium",
+    priceNote: "Research sold prices on Depop for the same label and condition. Premium items hold price — do not undercut aggressively.",
+    floor: "Set floor at 70% of target. Premium buyers expect to negotiate slightly.",
+    prep: [
+      "Style the item for photography — flat lay or worn.",
+      "Include brand, size, condition, and a brief description of the piece.",
+      "Tag accurately — wrong tags kill visibility.",
+    ],
+  },
+  electronics: {
+    primary: "eBay",
+    secondary: "Facebook Marketplace",
+    secondaryTrigger: "no enquiry in 72 hours",
+    speed: "1–4 days",
+    effort: "Low",
+    priceNote: "Check eBay sold listings for the exact model. Price at median of last 10 sales.",
+    floor: "Accept 80% of asking if buyer collects locally.",
+    prep: [
+      "Test the item and note any faults honestly.",
+      "Photograph all sides including ports and any damage.",
+      "Include model number, storage/spec, and accessories in the listing.",
+    ],
+  },
+  art: {
+    primary: "Etsy",
+    secondary: "Direct sale",
+    secondaryTrigger: "no sale in 14 days",
+    speed: "7–30 days",
+    effort: "High",
+    priceNote: "Research comparable work on Etsy by medium, size, and artist profile level. Price reflects effort, materials, and edition status.",
+    floor: "Do not price below material cost. Underpricing damages perceived value.",
+    prep: [
+      "Photograph in natural light — include detail shots and scale reference.",
+      "Write an honest description of medium, dimensions, and process.",
+      "Include edition info and certificate if applicable.",
+    ],
+  },
+  generic: {
+    primary: "Facebook Marketplace",
+    secondary: "eBay",
+    secondaryTrigger: "no enquiry in 72 hours",
+    speed: "1–5 days",
+    effort: "Low to medium",
+    priceNote: "Search the platform for comparable items sold recently. Price at or slightly below the median.",
+    floor: "Accept 75% of asking for quick local sale.",
+    prep: [
+      "Photograph clearly in good light.",
+      "Include condition, dimensions or spec, and any flaws.",
+    ],
+  },
+};
+
+function detectItemType(text) {
+  const lower = text.toLowerCase();
+  if (includesAny(lower, ["bike", "bicycle", "cycling"])) return "bike";
+  if (includesAny(lower, ["jewellery", "jewelry", "ring", "necklace", "bracelet", "earring", "watch"])) return "jewellery";
+  if (includesAny(lower, ["depop", "grailed", "designer", "vintage clothing", "premium"])) return "clothing-premium";
+  if (includesAny(lower, ["clothes", "clothing", "tops", "dresses", "jeans", "shirts", "jacket", "coat", "vinted"])) return "clothing-volume";
+  if (includesAny(lower, ["phone", "laptop", "ipad", "tablet", "console", "camera", "electronics", "tech"])) return "electronics";
+  if (includesAny(lower, ["art", "print", "painting", "artwork", "illustration", "drawing"])) return "art";
+  return "generic";
+}
+
+function buildPricingReason(object, itemType, matrix) {
+  const s = object.classification.signals;
+  const { urgency, value } = object.score;
+  const sum = urgency + value;
+  const text = object.normalised.toLowerCase();
+
+  const parts = [];
+
+  if (s.fastSale || includesAny(text, ["need gone", "this week", "today", "fast"])) {
+    parts.push(`Hard deadline detected — speed over maximum price`);
+    parts.push(`${matrix.primary} is the fastest route for ${itemType === "generic" ? "this item type" : itemType}`);
+  } else {
+    parts.push(`Resale intent confirmed for ${itemType === "generic" ? "unspecified item" : itemType}`);
+    parts.push(`${matrix.primary} matched on speed, audience fit, and effort`);
+  }
+
+  parts.push(`urgency ${urgency} + value ${value} = ${sum} — execute threshold met`);
+
+  if (itemType === "generic") {
+    parts.push(`Item type not detected — use the price note below to anchor your listing price`);
+  }
+
+  return parts.join(". ") + ".";
+}
+
+export function buildPricingOutput(object) {
+  const text = object.normalised;
+  const itemType = detectItemType(text);
+  const matrix = PRICING_MATRIX[itemType];
+  const s = object.classification.signals;
+  const isFast = s.fastSale || includesAny(text.toLowerCase(), ["need gone", "this week", "today", "asap"]);
+
+  return {
+    kind: "oracle-pricing",
+    title: `${object.classification.intent} · ${object.route.routeState}`,
+    diagnosis: buildDiagnosis(object),
+    itemType,
+    primaryRoute: matrix.primary,
+    secondaryRoute: `${matrix.secondary} — if ${matrix.secondaryTrigger}`,
+    priceNote: matrix.priceNote,
+    floor: matrix.floor,
+    prep: matrix.prep,
+    timeToSale: isFast
+      ? `${matrix.speed} (fast-sale priority)`
+      : matrix.speed,
+    reason: buildPricingReason(object, itemType, matrix),
   };
 }

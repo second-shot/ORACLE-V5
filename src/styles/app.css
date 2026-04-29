@@ -1,0 +1,365 @@
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Tokens ── */
+:root {
+  --bg:            #0a0a0a;
+  --surface:       #111111;
+  --border:        #1f1f1f;
+  --border-mid:    #2a2a2a;
+  --text-primary:  #e8e8e8;
+  --text-secondary:#888888;
+  --text-dim:      #4a4a4a;
+  --accent:        #c8c8c8;
+  --route-badge:   #1a1a1a;
+  --route-text:    #a0a0a0;
+
+  --font-mono: "SF Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --radius:    6px;
+  --radius-sm: 4px;
+}
+
+/* ── Screen reader only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Shell ── */
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.oracle-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 16px 80px;
+}
+
+/* ── Header ── */
+.oracle-header {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 32px 0 24px;
+}
+
+.oracle-wordmark {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+}
+
+.oracle-version {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+}
+
+/* ── Input zone ── */
+.oracle-input-zone {
+  width: 100%;
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+.oracle-form {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.oracle-textarea {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 10px 14px;
+  resize: none;
+  overflow: hidden;
+  min-height: 42px;
+  transition: border-color 0.15s ease;
+}
+
+.oracle-textarea::placeholder {
+  color: var(--text-dim);
+}
+
+.oracle-textarea:focus {
+  outline: none;
+  border-color: var(--border-mid);
+}
+
+.oracle-submit {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  padding: 0 16px;
+  height: 42px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  min-width: 48px;
+  min-height: 42px;
+}
+
+.oracle-submit:hover:not(:disabled) {
+  color: var(--text-primary);
+  border-color: var(--border-mid);
+}
+
+.oracle-submit:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.oracle-submit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Output zone ── */
+.oracle-output-zone {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── SurfaceCard ── */
+.surface-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.surface-card__body {
+  padding: 18px 20px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Title = diagnosis */
+.surface-card__title {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.surface-card__decision {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Route badge */
+.surface-card__route-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--route-text);
+  background: var(--route-badge);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 2px 7px;
+  display: inline-block;
+  width: fit-content;
+  text-transform: uppercase;
+}
+
+/* Primary action — high contrast */
+.surface-card__action {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+/* Memory line — dim, secondary */
+.surface-card__memory {
+  font-size: 11px;
+  color: var(--text-dim);
+  padding-bottom: 6px;
+}
+
+/* Inspect toggle */
+.surface-card__inspect-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  padding: 9px 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s ease;
+  min-height: 36px;
+}
+
+.surface-card__inspect-toggle:hover {
+  color: var(--text-secondary);
+}
+
+.surface-card__inspect-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* Inspector panel */
+.surface-card__inspector {
+  overflow: hidden;
+}
+
+.inspector__inner {
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Meta row: intent, route, archive */
+.inspector__meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.inspector__field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inspector__key {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.inspector__val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Sections */
+.inspector__section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inspector__section-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.inspector__text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.inspector__text--trace {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  word-break: break-word;
+}
+
+/* Score pips */
+.inspector__scores {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.score-pip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.score-pip__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.score-pip__value {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ── Responsive: 320px floor ── */
+@media (max-width: 360px) {
+  .oracle-shell {
+    padding: 0 12px 80px;
+  }
+
+  .oracle-header {
+    padding: 20px 0 16px;
+  }
+
+  .surface-card__action {
+    font-size: 14px;
+  }
+
+  .inspector__meta {
+    gap: 14px;
+  }
+
+  .inspector__scores {
+    gap: 12px;
+  }
+}

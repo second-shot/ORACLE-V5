@@ -7,6 +7,33 @@
 const ARCHIVE_KEY = "oracle-v5-archive";
 const ARCHIVE_CAP = 100;
 
+// ── Input history ─────────────────────────────────────────────────────────────
+// Persists last 10 raw input strings for quick re-submission.
+
+const HISTORY_KEY = "oracle-v5-input-history";
+const HISTORY_CAP = 10;
+
+export function loadInputHistory() {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function pushInputHistory(rawInput, current) {
+  // Deduplicate: remove any existing identical entry, then prepend
+  const filtered = current.filter((h) => h !== rawInput);
+  const updated = [rawInput, ...filtered].slice(0, HISTORY_CAP);
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(updated));
+  } catch {
+    // Silent fail — storage unavailable
+  }
+  return updated;
+}
+
 function loadArchive() {
   try {
     const raw = localStorage.getItem(ARCHIVE_KEY);

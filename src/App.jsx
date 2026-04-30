@@ -1,12 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SurfaceCard } from "./components/SurfaceCard.jsx";
+import { InputHistory } from "./components/InputHistory.jsx";
 import { runOraclePipeline } from "./lib/oracleEngine.js";
-import { storeInArchive, findRelated } from "./lib/oracleArchive.js";
+import {
+  storeInArchive,
+  findRelated,
+  loadInputHistory,
+  pushInputHistory,
+} from "./lib/oracleArchive.js";
 
 export default function App() {
   const [input, setInput] = useState("");
   const [objects, setObjects] = useState([]);
+  const [history, setHistory] = useState(() => loadInputHistory());
   const textareaRef = useRef(null);
 
   // Auto-resize textarea
@@ -17,9 +24,7 @@ export default function App() {
     }
   }, [input]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const raw = input.trim();
+  function submitInput(raw) {
     if (!raw) return;
 
     const { object, archiveWriter } = runOraclePipeline(raw);
@@ -30,6 +35,14 @@ export default function App() {
 
     archiveWriter(enriched);
     setObjects((prev) => [enriched, ...prev]);
+    setHistory((prev) => pushInputHistory(raw, prev));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const raw = input.trim();
+    if (!raw) return;
+    submitInput(raw);
     setInput("");
   }
 
@@ -72,6 +85,7 @@ export default function App() {
             Run
           </button>
         </form>
+        <InputHistory history={history} onSelect={submitInput} />
       </section>
 
       <section className="oracle-output-zone" aria-live="polite" aria-label="Oracle outputs">

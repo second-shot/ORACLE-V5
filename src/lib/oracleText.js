@@ -533,15 +533,17 @@ export function buildPricingOutput(object) {
     kind: "oracle-pricing",
     title: `${object.classification.intent} · ${object.route.routeState}`,
     diagnosis: buildDiagnosis(object),
-    itemType,
-    primaryRoute: matrix.primary,
-    secondaryRoute: `${matrix.secondary} — if ${matrix.secondaryTrigger}`,
-    priceNote: matrix.priceNote,
-    floor: matrix.floor,
-    prep: matrix.prep,
-    timeToSale: isFast
-      ? `${matrix.speed} (fast-sale priority)`
-      : matrix.speed,
-    reason: buildPricingReason(object, itemType, matrix),
+    pricing: {
+      itemType,
+      primaryRoute: matrix.primary,
+      secondaryRoute: `${matrix.secondary} — if ${matrix.secondaryTrigger}`,
+      priceNote: matrix.priceNote,
+      floor: matrix.floor,
+      prep: matrix.prep,
+      timeToSale: isFast
+        ? `${matrix.speed} (fast-sale priority)`
+        : matrix.speed,
+      reason: buildPricingReason(object, itemType, matrix),
+    },
   };
 }

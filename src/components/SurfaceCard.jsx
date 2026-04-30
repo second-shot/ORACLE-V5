@@ -58,8 +58,8 @@ export function SurfaceCard({ object }) {
         <div className="surface-card__decision">
           <span className="surface-card__route-label">{routeLabel}</span>
 
-          {output.kind === "oracle-pricing" ? (
-            <PricingOutput output={output} />
+          {output?.pricing ? (
+            <PricingOutput output={output.pricing} />
           ) : (
             <p className="surface-card__action">{output.nextAction}</p>
           )}

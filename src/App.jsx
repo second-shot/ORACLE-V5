@@ -2,17 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SurfaceCard } from "./components/SurfaceCard.jsx";
 import { InputHistory } from "./components/InputHistory.jsx";
-import { runOraclePipeline } from "./lib/oracleEngine.js";
-import {
-  storeInArchive,
-  findRelated,
-  loadInputHistory,
-  pushInputHistory,
-} from "./lib/oracleArchive.js";
+import { useOracleSystem } from "./lib/useOracleSystem.js";
+import { loadInputHistory, pushInputHistory } from "./lib/oracleArchive.js";
 
 export default function App() {
   const [input, setInput] = useState("");
-  const [objects, setObjects] = useState([]);
+  const { objects, addObject } = useOracleSystem();
   const [history, setHistory] = useState(() => loadInputHistory());
   const textareaRef = useRef(null);
 
@@ -26,15 +21,7 @@ export default function App() {
 
   function submitInput(raw) {
     if (!raw) return;
-
-    const { object, archiveWriter } = runOraclePipeline(raw);
-
-    // Attach memory match from archive before storing
-    const match = findRelated(object);
-    const enriched = { ...object, memoryMatch: match };
-
-    archiveWriter(enriched);
-    setObjects((prev) => [enriched, ...prev]);
+    addObject(raw);
     setHistory((prev) => pushInputHistory(raw, prev));
   }
 

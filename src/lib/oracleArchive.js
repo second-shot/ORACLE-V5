@@ -34,7 +34,7 @@ export function pushInputHistory(rawInput, current) {
   return updated;
 }
 
-function loadArchive() {
+export function loadArchive() {
   try {
     const raw = localStorage.getItem(ARCHIVE_KEY);
     return raw ? JSON.parse(raw) : [];
@@ -43,7 +43,7 @@ function loadArchive() {
   }
 }
 
-function saveArchive(objects) {
+export function saveObjects(objects) {
   try {
     localStorage.setItem(ARCHIVE_KEY, JSON.stringify(objects));
   } catch {
@@ -60,7 +60,7 @@ function saveArchive(objects) {
 export function storeInArchive(object) {
   const archive = loadArchive();
   const updated = [object, ...archive].slice(0, ARCHIVE_CAP);
-  saveArchive(updated);
+  saveObjects(updated);
   return object;
 }
 

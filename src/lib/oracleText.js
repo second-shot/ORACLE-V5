@@ -370,6 +370,11 @@ export function buildOutput(object) {
     return buildPricingOutput(object);
   }
 
+  // Proposal branch: build or creative + execute
+  if ((intent === "build" || intent === "creative") && routeState === "execute") {
+    return buildProposalOutput(object);
+  }
+
   return {
     kind: "oracle-decision",
     title: `${object.classification.intent} · ${object.route.routeState}`,
@@ -543,5 +548,88 @@ export function buildPricingOutput(object) {
       ? `${matrix.speed} (fast-sale priority)`
       : matrix.speed,
     reason: buildPricingReason(object, itemType, matrix),
+  };
+}
+
+// ── Proposal Output Branch ─────────────────────────────────────────────────
+// Fires when: (intent === "build" OR intent === "creative") AND routeState === "execute"
+// Fields: audience, format, deliverable tie directly to detected signals.
+// No generic filler — each field reflects what the input actually contains.
+
+function detectProposalAudience(object) {
+  const text = object.normalised.toLowerCase();
+  const { intent } = object.classification;
+
+  if (includesAny(text, ["client", "clients"])) return "Client";
+  if (includesAny(text, ["team", "colleagues", "stakeholders", "investors"])) return "Team / stakeholders";
+  if (includesAny(text, ["user", "users", "audience", "customers", "readers", "followers", "viewers"])) return "End users";
+  if (includesAny(text, ["myself", "personal", "me", "my own"])) return "Self / internal";
+  if (intent === "build") return "Internal / team";
+  return "Defined audience TBC";
+}
+
+function detectProposalFormat(object) {
+  const text = object.normalised.toLowerCase();
+  const { intent } = object.classification;
+
+  if (intent === "build") {
+    if (includesAny(text, ["deck", "pitch", "pitch deck", "presentation"])) return "Pitch deck";
+    if (includesAny(text, ["proposal", "brief", "write-up", "writeup"])) return "Written proposal";
+    if (includesAny(text, ["spec", "specification", "technical", "architecture", "system"])) return "Technical spec";
+    if (includesAny(text, ["app", "application", "site", "website", "tool", "product"])) return "Working prototype";
+    return "Shippable build slice";
+  }
+
+  // creative
+  if (includesAny(text, ["story", "article", "essay", "piece", "blog", "post", "write"])) return "Written piece";
+  if (includesAny(text, ["song", "track", "music", "audio", "record"])) return "Audio track";
+  if (includesAny(text, ["art", "artwork", "painting", "illustration", "drawing", "print"])) return "Visual artwork";
+  if (includesAny(text, ["brand", "branding", "identity", "logo"])) return "Brand identity";
+  if (includesAny(text, ["design", "visual", "layout", "ui", "ux", "interface"])) return "Design output";
+  if (includesAny(text, ["video", "film", "short", "clip", "reel"])) return "Video piece";
+  return "Finished creative output";
+}
+
+function detectProposalDeliverable(object) {
+  const text = object.normalised.toLowerCase();
+  const { intent } = object.classification;
+  const format = detectProposalFormat(object);
+
+  if (intent === "build") {
+    if (format === "Pitch deck") return "One complete pitch deck — structured, rehearsed, ready to present.";
+    if (format === "Written proposal") return "One written proposal — clear scope, outcome, and timeline.";
+    if (format === "Technical spec") return "One technical spec — architecture decisions locked, scope bounded.";
+    if (format === "Working prototype") return "One working prototype — demonstrates the core loop end to end.";
+    return "One shippable slice — the smallest version that proves the concept works.";
+  }
+
+  // creative
+  if (format === "Written piece") return "One finished, edited piece — ready to share or publish.";
+  if (format === "Audio track") return "One completed track — mixed and ready to share.";
+  if (format === "Visual artwork") return "One finished piece — photographed, titled, and ready to present.";
+  if (format === "Brand identity") return "One identity system — mark, palette, and one use-case example.";
+  if (format === "Design output") return "One finished design — exported at correct spec, ready to hand off.";
+  if (format === "Video piece") return "One finished cut — colour-corrected and ready to export.";
+  return "One finished output — complete enough to share and receive real feedback.";
+}
+
+function buildProposalReason(object) {
+  const { intent } = object.classification;
+  const { urgency, value, clarity, effort } = object.score;
+  const sum = urgency + value;
+
+  return `${intent.charAt(0).toUpperCase() + intent.slice(1)} intent · execute threshold met (urgency ${urgency} + value ${value} = ${sum}). Clarity ${clarity}/5 · effort ${effort}/5. One concrete deliverable over a broad output.`;
+}
+
+export function buildProposalOutput(object) {
+  return {
+    kind: "oracle-proposal",
+    title: `${object.classification.intent} · ${object.route.routeState}`,
+    diagnosis: buildDiagnosis(object),
+    audience: detectProposalAudience(object),
+    format: detectProposalFormat(object),
+    deliverable: detectProposalDeliverable(object),
+    nextAction: buildNextAction(object),
+    reason: buildProposalReason(object),
   };
 }

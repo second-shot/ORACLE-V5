@@ -537,3 +537,53 @@ html, body {
   line-height: 1.5;
   font-style: italic;
 }
+
+/* ── Proposal Output ── */
+.proposal-output {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.proposal-output__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.proposal-output__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.proposal-output__value {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.proposal-output__value--primary {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.proposal-output__reason {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 2px;
+}
+
+.proposal-output__reason-text {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  font-style: italic;
+}

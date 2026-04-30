@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PricingOutput } from "./PricingOutput.jsx";
+import { ProposalOutput } from "./ProposalOutput.jsx";
 
 function formatPipelineTrace(log) {
   if (!log || log.length === 0) return "—";
@@ -60,6 +61,8 @@ export function SurfaceCard({ object }) {
 
           {output.kind === "oracle-pricing" ? (
             <PricingOutput output={output} />
+          ) : output.kind === "oracle-proposal" ? (
+            <ProposalOutput output={output} />
           ) : (
             <p className="surface-card__action">{output.nextAction}</p>
           )}

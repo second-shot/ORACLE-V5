@@ -565,6 +565,7 @@ function detectProposalAudience(object) {
   if (includesAny(text, ["user", "users", "audience", "customers", "readers", "followers", "viewers"])) return "End users";
   if (includesAny(text, ["myself", "personal", "me", "my own"])) return "Self / internal";
   if (intent === "build") return "Internal / team";
+  if (intent === "creative") return "Public / open audience";
   return "Defined audience TBC";
 }
 
@@ -617,8 +618,9 @@ function buildProposalReason(object) {
   const { intent } = object.classification;
   const { urgency, value, clarity, effort } = object.score;
   const sum = urgency + value;
+  const intentLabel = intent.charAt(0).toUpperCase() + intent.slice(1);
 
-  return `${intent.charAt(0).toUpperCase() + intent.slice(1)} intent · execute threshold met (urgency ${urgency} + value ${value} = ${sum}). Clarity ${clarity}/5 · effort ${effort}/5. One concrete deliverable over a broad output.`;
+  return `${intentLabel} intent · execute threshold met (urgency ${urgency} + value ${value} = ${sum}). Clarity ${clarity}/5 · effort ${effort}/5. One concrete deliverable over a broad output.`;
 }
 
 export function buildProposalOutput(object) {

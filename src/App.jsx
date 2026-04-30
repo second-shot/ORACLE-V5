@@ -2,18 +2,11 @@ import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SurfaceCard } from "./components/SurfaceCard.jsx";
 import { InputHistory } from "./components/InputHistory.jsx";
-import { runOraclePipeline } from "./lib/oracleEngine.js";
-import {
-  storeInArchive,
-  findRelated,
-  loadInputHistory,
-  pushInputHistory,
-} from "./lib/oracleArchive.js";
+import { useOracleSystem } from "./hooks/useOracleSystem.js";
 
 export default function App() {
   const [input, setInput] = useState("");
-  const [objects, setObjects] = useState([]);
-  const [history, setHistory] = useState(() => loadInputHistory());
+  const { objects, history, submitInput } = useOracleSystem();
   const textareaRef = useRef(null);
 
   // Auto-resize textarea
@@ -23,20 +16,6 @@ export default function App() {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [input]);
-
-  function submitInput(raw) {
-    if (!raw) return;
-
-    const { object, archiveWriter } = runOraclePipeline(raw);
-
-    // Attach memory match from archive before storing
-    const match = findRelated(object);
-    const enriched = { ...object, memoryMatch: match };
-
-    archiveWriter(enriched);
-    setObjects((prev) => [enriched, ...prev]);
-    setHistory((prev) => pushInputHistory(raw, prev));
-  }
 
   function handleSubmit(e) {
     e.preventDefault();

@@ -78,16 +78,24 @@ function getActiveSignals(classification) {
   return active;
 }
 
-function scoreMatch(candidate, subject) {
+function getKeywords(object) {
+  const text = object.normalised ?? object.raw ?? "";
+  return text
+    .toLowerCase()
+    .split(/\W+/)
+    .filter((w) => w.length > 3);
+}
+
+function scoreMatch(candidate, subject, subjectSignals, subjectKeywords) {
   const intentMatch = candidate.classification?.intent === subject.classification?.intent;
   const candidateSignals = getActiveSignals(candidate.classification);
-  const subjectSignals = getActiveSignals(subject.classification);
 
-  const signalOverlap = candidateSignals.filter((s) =>
-    subjectSignals.includes(s)
-  ).length;
+  const signalOverlap = candidateSignals.filter((s) => subjectSignals.has(s)).length;
 
-  return (intentMatch ? 2 : 0) + signalOverlap;
+  const candidateKeywords = getKeywords(candidate);
+  const keywordOverlap = candidateKeywords.filter((k) => subjectKeywords.has(k)).length;
+
+  return (intentMatch ? 2 : 0) + signalOverlap + Math.min(keywordOverlap, 3);
 }
 
 function buildMatchLabel(candidate, subject) {
@@ -103,18 +111,18 @@ function buildMatchLabel(candidate, subject) {
   return `${relationLabel}: ${intent} / ${dominant}`;
 }
 
-export function findRelated(object) {
-  const archive = loadArchive();
-
-  // Exclude the object itself (just stored)
-  const candidates = archive.filter((c) => c.id !== object.id);
+export function findRelated(object, archive = null) {
+  const candidates = (archive ?? loadArchive()).filter((c) => c.id !== object.id);
   if (candidates.length === 0) return null;
+
+  const subjectSignals = new Set(getActiveSignals(object.classification));
+  const subjectKeywords = new Set(getKeywords(object));
 
   let best = null;
   let bestScore = 0;
 
   for (const candidate of candidates) {
-    const score = scoreMatch(candidate, object);
+    const score = scoreMatch(candidate, object, subjectSignals, subjectKeywords);
     if (
       score > bestScore ||
       (score === bestScore &&

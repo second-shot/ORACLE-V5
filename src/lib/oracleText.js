@@ -307,6 +307,17 @@ function buildNextAction(object) {
       return "What type of item are you pricing? (e.g. clothing, electronics, bike, jewellery)";
     if (intent === "creative")
       return "What kind of project? (e.g. something to build, something to sell, something to make)";
+    if (intent === "build")
+      return "What are you building? (e.g. an app, a website, a product)";
+    if (intent === "planning")
+      return "What are you trying to sequence or organise?";
+    if (intent === "question")
+      return "What's the specific decision you need to make?";
+    // intent === "unclear" — surface any partial signal detected rather than asking generically
+    if (s.overwhelmed)
+      return "You mentioned feeling stuck or overwhelmed — is this about something to sell, build, or organise?";
+    if (s.fastSale)
+      return "You mentioned urgency — what are you trying to resolve or move quickly?";
     return "What single outcome matters most right now?";
   }
 

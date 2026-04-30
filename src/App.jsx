@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { SurfaceCard } from "./components/SurfaceCard.jsx";
+import { MemoryStack } from "./components/MemoryStack.jsx";
 import { InputHistory } from "./components/InputHistory.jsx";
 import { runOraclePipeline } from "./lib/oracleEngine.js";
 import {
@@ -88,12 +87,8 @@ export default function App() {
         <InputHistory history={history} onSelect={submitInput} />
       </section>
 
-      <section className="oracle-output-zone" aria-live="polite" aria-label="Oracle outputs">
-        <AnimatePresence>
-          {objects.map((obj) => (
-            <SurfaceCard key={obj.id} object={obj} />
-          ))}
-        </AnimatePresence>
+      <section className="oracle-output-zone" aria-live="polite">
+        <MemoryStack objects={objects} />
       </section>
     </main>
   );

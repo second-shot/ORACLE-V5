@@ -35,7 +35,7 @@ export function SurfaceCard({ object }) {
 
   if (!object?.output) return null;
 
-  const { output, classification, score, route, pipelineLog, memoryMatch } = object;
+  const { output, classification, score, route, pipelineLog } = object;
   const intent = classification?.intent ?? "—";
   const routeState = route?.routeState ?? "—";
   const archiveLayer = route?.archiveLayer ?? "—";
@@ -46,10 +46,8 @@ export function SurfaceCard({ object }) {
   return (
     <motion.article
       className="surface-card"
-      initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      exit={{ opacity: 0, y: -8, filter: "blur(4px)" }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      initial={false}
+      layout
     >
       {/* ── Collapsed layer (always visible) ── */}
       <div className="surface-card__body">
@@ -64,12 +62,6 @@ export function SurfaceCard({ object }) {
             <p className="surface-card__action">{output.nextAction}</p>
           )}
         </div>
-
-        {memoryMatch?.label ? (
-          <p className="surface-card__memory">
-            Related: {memoryMatch.label}
-          </p>
-        ) : null}
       </div>
 
       {/* ── Inspector toggle ── */}

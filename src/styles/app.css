@@ -255,6 +255,28 @@ html, body {
   gap: 12px;
 }
 
+/* ── MemoryStack ── */
+.memory-stack {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.memory-stack__entry {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Dim secondary line — related memory match */
+.memory-stack__related {
+  font-size: 11px;
+  color: var(--text-dim);
+  padding: 0 4px;
+  line-height: 1.45;
+}
+
 /* ── SurfaceCard ── */
 .surface-card {
   background: var(--surface);
@@ -304,13 +326,6 @@ html, body {
   font-weight: 500;
   color: var(--text-primary);
   line-height: 1.45;
-}
-
-/* Memory line — dim, secondary */
-.surface-card__memory {
-  font-size: 11px;
-  color: var(--text-dim);
-  padding-bottom: 6px;
 }
 
 /* Inspect toggle */

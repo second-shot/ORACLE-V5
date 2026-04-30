@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SurfaceCard } from "./components/SurfaceCard.jsx";
 import { InputHistory } from "./components/InputHistory.jsx";
+import { ArchiveAtlas } from "./components/ArchiveAtlas.jsx";
 import { runOraclePipeline } from "./lib/oracleEngine.js";
 import {
   storeInArchive,
@@ -87,6 +88,8 @@ export default function App() {
         </form>
         <InputHistory history={history} onSelect={submitInput} />
       </section>
+
+      <ArchiveAtlas objectCount={objects.length} />
 
       <section className="oracle-output-zone" aria-live="polite" aria-label="Oracle outputs">
         <AnimatePresence>

@@ -437,6 +437,53 @@ html, body {
   color: var(--text-secondary);
 }
 
+/* ── Archive Atlas ── */
+.archive-atlas {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0 2px;
+}
+
+.archive-atlas__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.archive-atlas__grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.archive-atlas__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.archive-atlas__layer {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.archive-atlas__count {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
 /* ── Responsive: 320px floor ── */
 @media (max-width: 360px) {
   .oracle-shell {

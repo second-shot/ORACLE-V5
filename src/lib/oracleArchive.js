@@ -103,6 +103,23 @@ function buildMatchLabel(candidate, subject) {
   return `${relationLabel}: ${intent} / ${dominant}`;
 }
 
+export function loadArchiveCounts() {
+  const archive = loadArchive();
+  const counts = {
+    live: 0,
+    cold: 0,
+    shadow: 0,
+    market: 0,
+    identity: 0,
+    process: 0,
+  };
+  for (const obj of archive) {
+    const layer = obj.archiveLayer;
+    if (layer in counts) counts[layer]++;
+  }
+  return counts;
+}
+
 export function findRelated(object) {
   const archive = loadArchive();
 

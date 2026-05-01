@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATUS_FILE = os.path.join(ROOT, "agent-room", "agent_status.json")
 LOG_FILE = os.path.join(ROOT, "agent-room", "agent_log.jsonl")
-CANON_FILE = os.path.join(ROOT, "oracle-v5-canon.md")
+CANON_FILE = os.path.join(ROOT, "canon", "oracle_v5_canon.md")
 
 AGENT_NAME = "ORACLE Operator Agent"
 

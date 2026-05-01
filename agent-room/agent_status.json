@@ -1,14 +1,15 @@
 {
   "agent_name": "ORACLE Operator Agent",
   "state": "idle",
-  "mood": "ready",
-  "focus": "awaiting command",
+  "mood": "offline",
+  "focus": "none",
   "productivity": 0,
   "current_task": null,
-  "updated_at": "2026-05-01T10:00:00Z",
+  "updated_at": "2026-05-01T10:56:26Z",
   "stats": {
-    "commands_processed": 0,
-    "logs_written": 0,
-    "session_start": "2026-05-01T10:00:00Z"
+    "commands_processed": 1,
+    "logs_written": 1,
+    "session_start": "2026-05-01T10:00:00Z",
+    "canon_reads": 1
   }
 }

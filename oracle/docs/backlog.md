@@ -34,7 +34,8 @@ The live register of what matters now, what is next, and what is parked. Every i
 |----|------|-------|
 | B-008 | Reconcile canon/ with oracle/docs/ | Identified as top risk in MIA-001. Assign to MIA-002. |
 | B-009 | Wire oracle_agent_api/ to oracle/ docs | API has no routes exposing oracle layer yet |
-| B-010 | Decide fate of oracle_workspace/ | Either wire it to a real workflow or deprecate it with a logged decision |
+| B-011 | MIA-002 — map and reconcile canon/ against oracle/docs/ | Stale HTML prototypes archived to canon/archive/. Canon files still unreconciled. |
+
 
 ---
 
@@ -62,6 +63,7 @@ The live register of what matters now, what is next, and what is parked. Every i
 | B-002 | MIA-001 — State of Oracle Audit | Completed. Report at oracle/mia/reports/2026-05-01-state-of-oracle.md | 2026-05-01 |
 | B-003 | MIA-002 — queue for activation | Activated as B-005 | 2026-05-01 |
 | B-004 | MIA-005 — queue for activation | Activated as B-007 | 2026-05-01 |
+| B-010 | Decide fate of oracle_workspace/ | Closed — actively used by oracle_agent_api. No action needed. | 2026-05-01 |
 
 ---
 

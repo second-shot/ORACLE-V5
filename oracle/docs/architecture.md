@@ -47,6 +47,11 @@ Mia's real output folder. Every completed mission produces a dated report file h
 Format: `YYYY-MM-DD-mission-name.md`
 This is where proof of work lives.
 
+### `/oracle/mia/templates`
+Structured output formats. All reports and decisions use these files.
+- `report-template.md`
+- `decision-template.md`
+
 ---
 
 ## Full Repo Map (as of 2026-05-01)
@@ -62,7 +67,7 @@ The repo contains more than just oracle/. This is the complete picture:
 | `agent-room/` | Operator agent logs and status | Active but disconnected from Mia |
 | `src/` | Vite/React frontend | Active — Oracle UI layer |
 | `oracle_agent_api/` | FastAPI backend stub | Minimal — no oracle/ routes yet |
-| `oracle_workspace/` | Output staging folders | Empty — no workflow writes to them |
+| `oracle_workspace/` | Agent API staging (drafts/approved/rejected/logs) | Active — used by `oracle_agent_api/main.py` |
 | `.github/` | Repo governance | Partial — labeler exists, no ISSUE_TEMPLATE or CODEOWNERS |
 
 ---

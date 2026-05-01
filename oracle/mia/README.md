@@ -28,8 +28,9 @@ She operates within it.
 - `system.md` — execution model
 - `missions.md` — active mission framework
 - `memory.md` — Mia's lessons and recurring patterns
-- `report-template.md` — reporting format
-- `decision-template.md` — decision format
+- `templates/` — reporting and decision formats
+  - `report-template.md`
+  - `decision-template.md`
 - `prompts/` — prompt logic
 - `checklists/` — review rituals
 

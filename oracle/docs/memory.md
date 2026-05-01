@@ -45,8 +45,8 @@ Each entry includes:
 
 ### M-005
 - **Date:** 2026-05-01
-- **Source:** MIA-001 — State of Oracle Audit
-- **Entry:** `oracle/mia/reports/` is the canonical output folder for all Mia mission reports. Reports are named `YYYY-MM-DD-mission-name.md`. `oracle_workspace/` exists but has no active workflow writing to it — its fate must be decided by a logged decision before the next infrastructure build.
+- **Source:** MIA-001 — State of Oracle Audit (corrected 2026-05-01)
+- **Entry:** `oracle/mia/reports/` is the canonical output folder for all Mia mission reports. Reports are named `YYYY-MM-DD-mission-name.md`. `oracle_workspace/` is actively used by `oracle_agent_api/main.py` as a draft/approve/reject staging area — it is not dead. The MIA-001 audit incorrectly assessed it as empty. It requires no remediation, only documentation.
 - **Status:** active
 
 ### M-006

@@ -1,6 +1,9 @@
 // Archive — localStorage persistence with findRelated() memory scoring
-// V2.1 spec: memory_score = (intent match → +2) + (per signal overlap → +1)
-// Minimum threshold: memory_score >= 3
+// Scoring breakdown per candidate:
+//   +2  intent match
+//   +1  per shared signal (resale, build, creative, …)
+//   +1  per shared keyword from normalised text, capped at +3
+// Minimum threshold: score >= 3
 // Returns single highest-scoring match, tie-broken by createdAt descending
 // Cap: 100 objects (FIFO eviction)
 

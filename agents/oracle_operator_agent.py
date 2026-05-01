@@ -102,11 +102,11 @@ def parse_build_steps(section_text: str) -> list[str]:
             in_list = True
             continue
         if in_list:
-            if stripped.startswith("**") and stripped.endswith("**"):
+            if stripped.startswith("**") and stripped.endswith("**") and len(stripped) > 4:
                 # Next bold header — list is over
                 break
             # Match lines like "1. Login and onboarding"
-            if stripped and stripped[0].isdigit() and ". " in stripped:
+            if len(stripped) > 0 and stripped[0].isdigit() and ". " in stripped:
                 steps.append(stripped)
     return steps
 
@@ -136,10 +136,11 @@ def handle_read_canon_next_step(stats: dict) -> dict:
 
     if build_steps:
         steps_text = "\n".join(f"   {s}" for s in build_steps)
+        first_step = build_steps[0] if build_steps else "step 1"
         next_step = (
             f"Canon section 11 defines the build order. Work through steps in sequence:\n"
             f"{steps_text}\n\n"
-            f"   Start with step 1 (Login and onboarding) if not yet built, "
+            f"   Start with '{first_step}' if not yet built, "
             f"or identify which step is currently incomplete and build that next.\n"
             f"   Success condition (from canon): a user can enter raw material, "
             f"see it become a structured object, watch it route into the correct path, "

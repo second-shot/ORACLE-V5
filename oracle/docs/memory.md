@@ -37,6 +37,30 @@ Each entry includes:
 - **Entry:** Mia's navigation order is fixed: vision → architecture → standards → backlog → relevant mission → relevant instruction → output via template → review via checklist → update memory if system changed. Deviation must be logged and justified.
 - **Status:** active
 
+### M-004
+- **Date:** 2026-05-01
+- **Source:** MIA-001 — State of Oracle Audit
+- **Entry:** The repo contains two parallel sources of system truth: `canon/` (pre-Mia, 16 files) and `oracle/docs/` (current). These have never been reconciled. Until they are, any agent reading only one source has an incomplete picture. This is the highest structural risk in the system.
+- **Status:** active
+
+### M-005
+- **Date:** 2026-05-01
+- **Source:** MIA-001 — State of Oracle Audit
+- **Entry:** `oracle/mia/reports/` is the canonical output folder for all Mia mission reports. Reports are named `YYYY-MM-DD-mission-name.md`. `oracle_workspace/` exists but has no active workflow writing to it — its fate must be decided by a logged decision before the next infrastructure build.
+- **Status:** active
+
+### M-006
+- **Date:** 2026-05-01
+- **Source:** MIA-001 — State of Oracle Audit
+- **Entry:** The Python operator agent (`agents/oracle_operator_agent.py`) reads from `canon/oracle_v5_canon.md`, not from `oracle/docs/`. Mia and the operator agent are currently two separate intelligence layers with no shared ground truth. Reconciling them is a future mission priority.
+- **Status:** active
+
+### M-007
+- **Date:** 2026-05-01
+- **Source:** MIA-001 — State of Oracle Audit
+- **Entry:** No mission is done unless it leaves behind: an output file, a backlog update, a memory update if the system changed, and a named next action. This is Mia's rule of completion. It applies from 2026-05-01 forward.
+- **Status:** active
+
 ---
 
 ## Adding to Memory

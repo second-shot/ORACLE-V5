@@ -1,0 +1,20 @@
+# CODEOWNERS
+# Each line is a file pattern followed by one or more owners.
+# Owners are notified when a PR modifies matching paths.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Oracle system truth — any change requires review
+oracle/docs/         @second-shot
+
+# Mia agent layer — any change requires review
+oracle/mia/          @second-shot
+
+# Canon — legacy layer, changes require review
+canon/               @second-shot
+
+# GitHub governance — changes require review
+.github/             @second-shot
+
+# Operator agent — changes require review
+agents/              @second-shot
+oracle_agent_api/    @second-shot

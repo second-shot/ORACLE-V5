@@ -4,9 +4,23 @@
 documentation:
   - changed-files:
     - any-glob-to-any-file:
-      - '**/*.md'
-      - 'README*'
-      - 'SECURITY*'
+      - 'README.md'
+      - 'SECURITY.md'
+
+oracle-docs:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'oracle/docs/**'
+
+mia:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'oracle/mia/**'
+
+mia-report:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'oracle/mia/reports/**'
 
 frontend:
   - changed-files:
@@ -31,3 +45,10 @@ canon:
   - changed-files:
     - any-glob-to-any-file:
       - 'canon/**'
+
+agent:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'agents/**'
+      - 'oracle_agent_api/**'
+      - 'agent-room/**'

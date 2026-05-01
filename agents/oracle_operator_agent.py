@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATUS_FILE = os.path.join(ROOT, "agent-room", "agent_status.json")
 LOG_FILE = os.path.join(ROOT, "agent-room", "agent_log.jsonl")
-CANON_FILE = os.path.join(ROOT, "oracle-v5-canon.md")
+CANON_FILE = os.path.join(ROOT, "canon", "oracle_v5_canon.md")
 
 AGENT_NAME = "ORACLE Operator Agent"
 
@@ -124,8 +124,8 @@ def handle_read_canon_next_step(stats: dict) -> dict:
         return {
             "recommendation": "Cannot read canon — file not found.",
             "reasoning": f"Master canon does not exist at expected path: {CANON_FILE}",
-            "missing_information": "Canon file must be present at repo root.",
-            "next_step": "Confirm oracle-v5-canon.md exists at repo root and re-run.",
+            "missing_information": "Canon file must be present at canon/oracle_v5_canon.md.",
+            "next_step": "Confirm canon/oracle_v5_canon.md exists and re-run.",
         }
 
     section_11 = extract_section(canon_text, "11.")

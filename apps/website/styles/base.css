@@ -1,0 +1,67 @@
+/* ─── Base reset ────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--space-20);
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+img, picture, video, svg { display: block; max-width: 100%; height: auto; }
+ul[role="list"], ol[role="list"] { list-style: none; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+p, li, figcaption { text-wrap: pretty; max-width: 68ch; }
+
+::selection {
+  background: var(--color-primary-dim);
+  color: var(--color-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+a, button, [role="button"] {
+  transition: color var(--transition),
+              background var(--transition),
+              border-color var(--transition),
+              opacity var(--transition);
+}
+
+a { color: inherit; text-decoration: none; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

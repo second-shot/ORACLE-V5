@@ -1,0 +1,115 @@
+/* ─── Oracle Design Tokens ─────────────────────────────────────────────── */
+
+:root {
+  /* Type scale */
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+  --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Layout */
+  --content-narrow:  640px;
+  --content-default: 960px;
+  --content-wide:    1200px;
+
+  /* Radii */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-full: 9999px;
+
+  /* Transition */
+  --transition: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Fonts */
+  --font-display: 'Clash Grotesk', 'Helvetica Neue', sans-serif;
+  --font-body:    'Satoshi', 'Helvetica Neue', sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ── Light mode ─────────────────────────────────────────────────────────── */
+:root, [data-theme="light"] {
+  --color-bg:             #f4f3ef;
+  --color-surface:        #f9f8f5;
+  --color-surface-2:      #ffffff;
+  --color-surface-offset: #eeede9;
+  --color-border:         #d8d5ce;
+  --color-divider:        #e0ddd7;
+
+  --color-text:           #18170f;
+  --color-text-muted:     #52504a;
+  --color-text-faint:     #8a8880;
+
+  --color-primary:        #006870;
+  --color-primary-hover:  #004d54;
+  --color-primary-dim:    #c8dcde;
+
+  --color-accent-line:    rgba(0,104,112,0.15);
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.09);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.11);
+}
+
+/* ── Dark mode ──────────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --color-bg:             #111110;
+  --color-surface:        #1a1918;
+  --color-surface-2:      #222120;
+  --color-surface-offset: #161514;
+  --color-border:         #333230;
+  --color-divider:        #292826;
+
+  --color-text:           #f2f0ea;
+  --color-text-muted:     #b8b5ae;
+  --color-text-faint:     #7a7872;
+
+  --color-primary:        #68c8d0;
+  --color-primary-hover:  #8ed8de;
+  --color-primary-dim:    #1e3a3d;
+
+  --color-accent-line:    rgba(104,200,208,0.2);
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.35);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.45);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg:             #111110;
+    --color-surface:        #1a1918;
+    --color-surface-2:      #222120;
+    --color-surface-offset: #161514;
+    --color-border:         #333230;
+    --color-divider:        #292826;
+    --color-text:           #f2f0ea;
+    --color-text-muted:     #b8b5ae;
+    --color-text-faint:     #7a7872;
+    --color-primary:        #68c8d0;
+    --color-primary-hover:  #8ed8de;
+    --color-primary-dim:    #1e3a3d;
+    --color-accent-line:    rgba(104,200,208,0.2);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.35);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.45);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.55);
+  }
+}

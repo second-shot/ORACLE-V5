@@ -1,0 +1,33 @@
+# Label PRs based on the paths of changed files.
+# See: https://github.com/actions/labeler
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.md'
+      - 'README*'
+      - 'SECURITY*'
+
+frontend:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'src/**'
+      - 'index.html'
+      - '*.html'
+      - 'vite.config.js'
+
+dependencies:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'package.json'
+      - 'package-lock.json'
+
+ci:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/**'
+
+canon:
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'canon/**'

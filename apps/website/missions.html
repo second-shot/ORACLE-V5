@@ -45,29 +45,29 @@
   <main class="page">
 
     <!-- Header -->
-    <section class="hero" style="min-height: 40vh; padding-block: clamp(var(--space-16), 6vw, var(--space-24));">
+    <section class="hero hero-short" aria-label="Missions overview">
       <p class="hero-eyebrow">Live Work</p>
-      <h1 class="hero-heading" style="max-width: 20ch;">Missions</h1>
+      <h1 class="hero-heading">Missions</h1>
       <p class="hero-sub">Every mission has a purpose, an output, and a definition of done. Nothing is complete without all four: output, backlog update, memory update, named next action.</p>
     </section>
 
     <!-- Stats bar -->
-    <div style="border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider); background: var(--color-surface);">
+    <div class="stat-bar">
       <div class="container">
-        <div class="stat-grid" style="border: none; border-radius: 0; background: transparent; gap: 0;">
-          <div class="stat" style="background: transparent; border-right: 1px solid var(--color-divider);">
+        <div class="stat-grid">
+          <div class="stat">
             <div class="stat-value">3</div>
             <div class="stat-label">Active</div>
           </div>
-          <div class="stat" style="background: transparent; border-right: 1px solid var(--color-divider);">
+          <div class="stat">
             <div class="stat-value">2</div>
             <div class="stat-label">Backlog</div>
           </div>
-          <div class="stat" style="background: transparent; border-right: 1px solid var(--color-divider);">
+          <div class="stat">
             <div class="stat-value">1</div>
             <div class="stat-label">Done</div>
           </div>
-          <div class="stat" style="background: transparent;">
+          <div class="stat">
             <div class="stat-value">7</div>
             <div class="stat-label">Total defined</div>
           </div>
@@ -90,7 +90,7 @@
             <div class="mission-desc">Verify which standards exist and which are still unwritten. Map all 16 canon/ files against oracle/docs/ — classify as superseded, migrate, or archive. Ends the two-source-of-truth problem.</div>
             <div class="mission-meta">
               <span class="badge badge-active">Active</span>
-              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-faint);">P1 · Output: audit note in oracle/mia/reports/</span>
+              <span class="mission-meta-note">P1 · Output: audit note in oracle/mia/reports/</span>
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
             <div class="mission-desc">Identify missing templates, automations, and process files. Assess the relationship between oracle_workspace/ and oracle/mia/reports/. Document weak points and propose next actions.</div>
             <div class="mission-meta">
               <span class="badge badge-active">Active</span>
-              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-faint);">P1 · Output: report in oracle/mia/reports/</span>
+              <span class="mission-meta-note">P1 · Output: report in oracle/mia/reports/</span>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@
             <div class="mission-desc">Give Oracle a leadership-level state-of-system report based on findings from MIA-001, MIA-002, and MIA-003. Current state, top gaps, risks with likelihood and impact, top 3 next actions.</div>
             <div class="mission-meta">
               <span class="badge badge-active">Active</span>
-              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-faint);">P1 · Output: report in oracle/mia/reports/</span>
+              <span class="mission-meta-note">P1 · Output: report in oracle/mia/reports/</span>
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@
     </section>
 
     <!-- Backlog -->
-    <section class="section" style="background: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);">
+    <section class="section section-alt">
       <div class="container-default">
         <div class="section-header">
           <span class="label">Backlog</span>
@@ -136,7 +136,7 @@
             <div class="mission-desc">Make sure meaningful decisions are captured consistently across oracle/docs/memory.md and oracle/mia/memory.md. Audit existing entries, fill gaps, standardise format.</div>
             <div class="mission-meta">
               <span class="badge badge-backlog">Backlog</span>
-              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-faint);">P2</span>
+              <span class="mission-meta-note">P2</span>
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@
             <div class="mission-desc">Map the relationship between agents/oracle_operator_agent.py (reads canon/) and Mia (reads oracle/docs/). Two agent layers with no shared ground truth. Propose a path to convergence.</div>
             <div class="mission-meta">
               <span class="badge badge-backlog">Backlog</span>
-              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-faint);">P2 · Output: decision document</span>
+              <span class="mission-meta-note">P2 · Output: decision document</span>
             </div>
           </div>
         </div>
@@ -170,41 +170,19 @@
             <div class="mission-desc">First live mission. Read every file in the repo. Mapped what exists, what is missing, what is weak, and what is inconsistent. Named the top three priorities. Rule of completion applied: output, backlog update, memory update, next action named.</div>
             <div class="mission-meta">
               <span class="badge badge-done">Done · 2026-05-01</span>
-              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-faint);">Output: oracle/mia/reports/2026-05-01-state-of-oracle.md</span>
+              <span class="mission-meta-note">Output: oracle/mia/reports/2026-05-01-state-of-oracle.md</span>
             </div>
           </div>
         </div>
 
         <!-- Checklist evidence -->
-        <div class="code-block" style="margin-top: var(--space-8);">
+        <div class="code-block mt-8">
 <span class="dim">// MIA-001 Rule of Completion — verified 2026-05-01</span>
 
 <span class="hi">✓</span>  Output: oracle/mia/reports/2026-05-01-state-of-oracle.md
 <span class="hi">✓</span>  Backlog updated: B-001, B-002 closed / MIA-002, 003, 005 activated
 <span class="hi">✓</span>  Memory updated: oracle/docs/memory.md M-004–M-007
 <span class="hi">✓</span>  Next action named: activate GitHub support layer</div>
-      </div>
-    </section>
-
-    <!-- Mission format -->
-    <section class="section" style="background: var(--color-surface); border-top: 1px solid var(--color-divider);">
-      <div class="container-default">
-        <div class="section-header">
-          <span class="label">Mission Format</span>
-          <h2 class="section-title">How every mission is defined</h2>
-        </div>
-        <div class="code-block">
-<span class="dim">## MIA-XXX — [Name]</span>
-<span class="hi">-</span> Priority: <span class="hi">P1</span> / P2 / P3
-<span class="hi">-</span> Status: backlog / ready / <span class="hi">active</span> / blocked / review / done
-<span class="hi">-</span> Owner: Mia
-<span class="hi">-</span> Purpose: [what this mission is for]
-<span class="hi">-</span> Output: [exact file path in oracle/mia/reports/]
-<span class="hi">-</span> Definition of done:
-    <span class="dim">- output is real and visible</span>
-    <span class="dim">- backlog updated</span>
-    <span class="dim">- memory updated if system changed</span>
-    <span class="dim">- next action named</span></div>
       </div>
     </section>
 
@@ -218,7 +196,7 @@
         <li><a href="mia.html">Mia</a></li>
         <li><a href="missions.html">Missions</a></li>
       </ul>
-      <span class="footer-note">Oracle is the system. Mia is the operator.</span>
+      <span class="footer-note">Structured for clarity. Built for continuity.</span>
     </div>
   </footer>
 

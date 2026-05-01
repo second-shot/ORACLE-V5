@@ -418,19 +418,30 @@
   line-height: 1.6;
 }
 
-/* ── Three-ring diagram ── */
-.rings {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+/* ── Three-ring nested diagram ── */
+.rings-nested {
+  position: relative;
 }
-.ring {
+.ring-outer {
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  background: var(--color-primary-dim);
+}
+.ring-middle {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-8);
   background: var(--color-surface);
+  margin-top: var(--space-8);
 }
-.ring-1 { border-color: var(--color-primary); background: var(--color-primary-dim); }
+.ring-inner {
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  background: var(--color-bg);
+  margin-top: var(--space-6);
+}
 .ring-label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -448,6 +459,7 @@
 .ring-desc {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
+  line-height: 1.6;
 }
 
 /* ── Stat row ── */
@@ -480,6 +492,134 @@
   font-family: var(--font-mono);
   text-transform: uppercase;
 }
+
+/* ── Spacing utilities ── */
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+.mb-4 { margin-bottom: var(--space-4); }
+
+/* ── Body copy (prose paragraphs) ── */
+.body-copy {
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  line-height: 1.7;
+}
+
+/* ── Rule text highlight (override muted) ── */
+.rule-text-hi { color: var(--color-text); }
+
+/* ── Section variants ── */
+.section-alt {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+}
+.section-alt-top {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-divider);
+}
+
+/* ── Hero size modifiers ── */
+.hero-medium { min-height: 55vh; }
+.hero-short  { min-height: 40vh; padding-block: clamp(var(--space-16), 6vw, var(--space-24)); }
+
+/* ── Hero grounding note ── */
+.hero-ground {
+  font-size: var(--text-sm);
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+  margin-top: var(--space-8);
+  max-width: 60ch;
+  line-height: 1.6;
+}
+
+/* ── CTA block (centered content band) ── */
+.cta-block {
+  text-align: center;
+  max-width: 640px;
+  margin-inline: auto;
+}
+.cta-block .section-desc { margin-inline: auto; margin-bottom: var(--space-8); }
+
+/* ── Label modifier ── */
+.label-center { text-align: center; display: block; }
+
+/* ── Hero actions modifier ── */
+.actions-center { justify-content: center; }
+
+/* ── Two-column wide grid ── */
+.grid-2-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: start;
+}
+
+/* ── Missions stats bar ── */
+.stat-bar {
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+  background: var(--color-surface);
+}
+.stat-bar .stat-grid {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  gap: 0;
+}
+.stat-bar .stat {
+  background: transparent;
+  border-right: 1px solid var(--color-divider);
+}
+.stat-bar .stat:last-child { border-right: none; }
+
+/* ── Instruction file list (Mia page) ── */
+.instr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.instr-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--color-divider);
+  align-items: start;
+}
+.instr-item:last-child { border-bottom: none; }
+.instr-key {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  letter-spacing: 0.1em;
+}
+.instr-title {
+  font-weight: 600;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+.instr-desc {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+}
+
+.mission-meta-note {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+/* ── Rule num color variants ── */
+.rule-num-pos { color: var(--color-primary); }
+.rule-num-neg { color: var(--color-text-faint); }
+.rule-num-arrow { color: var(--color-primary); }
 
 /* ── Footer ── */
 .footer {

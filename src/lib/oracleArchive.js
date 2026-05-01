@@ -5,7 +5,7 @@
 // Cap: 100 objects (FIFO eviction)
 
 const ARCHIVE_KEY = "oracle-v5-archive";
-const ARCHIVE_CAP = 100;
+export const ARCHIVE_CAP = 100;
 
 // ── Input history ─────────────────────────────────────────────────────────────
 // Persists last 10 raw input strings for quick re-submission.

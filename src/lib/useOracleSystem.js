@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { runOraclePipeline } from "./oracleEngine.js";
-import { findRelated, loadArchive, saveObjects } from "./oracleArchive.js";
+import { findRelated, loadArchive, saveObjects, ARCHIVE_CAP } from "./oracleArchive.js";
 
 export function useOracleSystem() {
   // Read archive from localStorage on mount
@@ -21,7 +21,7 @@ export function useOracleSystem() {
     const { object } = runOraclePipeline(raw);
     const match = findRelated(object);
     const enriched = { ...object, memoryMatch: match };
-    setObjects((prev) => [enriched, ...prev]);
+    setObjects((prev) => [enriched, ...prev].slice(0, ARCHIVE_CAP));
     return enriched;
   }
 

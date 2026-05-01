@@ -258,7 +258,6 @@
 
 /* ── Grid layouts ── */
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-6); }
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); }
 
 /* ── Mono code block ── */
@@ -366,58 +365,6 @@
 }
 .rule-text strong { color: var(--color-text); }
 
-/* ── Loop steps ── */
-.loop-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.loop-step {
-  display: flex;
-  gap: var(--space-6);
-  align-items: flex-start;
-  position: relative;
-  padding-bottom: var(--space-8);
-}
-.loop-step:last-child { padding-bottom: 0; }
-.loop-step::before {
-  content: '';
-  position: absolute;
-  left: 19px;
-  top: 40px;
-  bottom: 0;
-  width: 1px;
-  background: var(--color-divider);
-}
-.loop-step:last-child::before { display: none; }
-.loop-step-num {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--color-primary);
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
-}
-.loop-step-content { padding-top: var(--space-2); }
-.loop-step-title {
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: var(--space-1);
-  font-family: var(--font-display);
-}
-.loop-step-desc {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  line-height: 1.6;
-}
-
 /* ── Three-ring nested diagram ── */
 .rings-nested {
   position: relative;
@@ -522,7 +469,7 @@
 
 /* ── Hero size modifiers ── */
 .hero-medium { min-height: 55vh; }
-.hero-short  { min-height: 40vh; padding-block: clamp(var(--space-16), 6vw, var(--space-24)); }
+.hero-short { min-height: 40vh; padding-block: clamp(var(--space-16), 6vw, var(--space-24)); }
 
 /* ── Hero grounding note ── */
 .hero-ground {
@@ -574,41 +521,6 @@
   border-right: 1px solid var(--color-divider);
 }
 .stat-bar .stat:last-child { border-right: none; }
-
-/* ── Instruction file list (Mia page) ── */
-.instr-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-.instr-item {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: var(--space-6);
-  padding: var(--space-6);
-  border-bottom: 1px solid var(--color-divider);
-  align-items: start;
-}
-.instr-item:last-child { border-bottom: none; }
-.instr-key {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--color-primary);
-  letter-spacing: 0.1em;
-}
-.instr-title {
-  font-weight: 600;
-  color: var(--color-text);
-  font-size: var(--text-sm);
-}
-.instr-desc {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  margin-top: var(--space-1);
-}
 
 .mission-meta-note {
   font-family: var(--font-mono);
@@ -701,6 +613,7 @@
 
   .hero-heading { font-size: clamp(2.2rem, 8vw, 4rem); }
   .hero-sub { font-size: var(--text-base); }
+  .grid-2-col { grid-template-columns: 1fr; gap: var(--space-10); }
   .mission-row { flex-direction: column; gap: var(--space-3); }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }

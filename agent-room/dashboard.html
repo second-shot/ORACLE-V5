@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORACLE — Agent Room</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0a0a0a;
+      --surface:  #111111;
+      --border:   #222222;
+      --accent:   #00ff88;
+      --muted:    #444444;
+      --text:     #cccccc;
+      --dim:      #666666;
+      --warn:     #ffaa00;
+      --gap:      16px;
+      --radius:   6px;
+      --mono:     "Courier New", Courier, monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 13px;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    /* ── header ────────────────────────────────── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 12px var(--gap);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header .logo { color: var(--accent); font-size: 15px; letter-spacing: 2px; }
+    header .sub  { color: var(--dim); font-size: 11px; }
+    header .dot  {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--muted); margin-left: auto;
+      transition: background 0.4s;
+    }
+    header .dot.active  { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+    header .dot.offline { background: var(--muted); }
+
+    /* ── main grid ─────────────────────────────── */
+    main {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      grid-template-rows: auto 1fr;
+      gap: var(--gap);
+      padding: var(--gap);
+      overflow: hidden;
+    }
+
+    /* ── panels ────────────────────────────────── */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .panel-title {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding: 10px 14px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-body { padding: 14px; flex: 1; overflow-y: auto; }
+
+    /* ── status panel ──────────────────────────── */
+    #status-panel { grid-column: 1; grid-row: 1; }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--dim); font-size: 11px; }
+    .stat-value { color: var(--text); font-size: 12px; }
+    .stat-value.accent { color: var(--accent); }
+    .stat-value.warn   { color: var(--warn); }
+
+    /* productivity bar */
+    .prod-bar-wrap { margin-top: 10px; }
+    .prod-bar-label {
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: var(--dim); margin-bottom: 4px;
+    }
+    .prod-bar-track {
+      height: 4px; background: var(--border); border-radius: 2px;
+    }
+    .prod-bar-fill {
+      height: 4px; background: var(--accent); border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+
+    /* ── stats panel ───────────────────────────── */
+    #stats-panel { grid-column: 1; grid-row: 2; }
+
+    /* ── logs panel ────────────────────────────── */
+    #logs-panel { grid-column: 2; grid-row: 1 / 3; display: flex; flex-direction: column; }
+
+    #log-list {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+    .log-entry {
+      display: grid;
+      grid-template-columns: 170px 120px 1fr;
+      gap: 8px;
+      padding: 6px 14px;
+      border-bottom: 1px solid var(--border);
+      word-break: break-word;
+    }
+    .log-entry:last-child { border-bottom: none; }
+    .log-ts    { color: var(--muted); white-space: nowrap; }
+    .log-event { color: var(--accent); white-space: nowrap; }
+    .log-msg   { color: var(--text); }
+
+    /* ── chat panel ────────────────────────────── */
+    #chat-area {
+      border-top: 1px solid var(--border);
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    #chat-area .chat-title {
+      font-size: 10px; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--dim);
+    }
+    #chat-messages {
+      flex: 1; max-height: 120px; overflow-y: auto;
+      font-size: 11px; line-height: 1.6;
+    }
+    .chat-line { padding: 2px 0; }
+    .chat-line .who { color: var(--accent); margin-right: 6px; }
+    .chat-line .who.system { color: var(--dim); }
+
+    .chat-input-row { display: flex; gap: 6px; }
+    #chat-input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 10px;
+      outline: none;
+    }
+    #chat-input:focus { border-color: var(--accent); }
+    #chat-send {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    #chat-send:hover { border-color: var(--accent); }
+
+    /* ── footer ────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 8px var(--gap);
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      gap: 24px;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="logo">ORACLE</span>
+  <span class="sub">Agent Room — v5</span>
+  <div class="dot" id="state-dot"></div>
+</header>
+
+<main>
+
+  <!-- Status panel -->
+  <div class="panel" id="status-panel">
+    <div class="panel-title">Agent Status</div>
+    <div class="panel-body">
+      <div class="stat-row">
+        <span class="stat-label">Name</span>
+        <span class="stat-value accent" id="s-name">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">State</span>
+        <span class="stat-value" id="s-state">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Mood</span>
+        <span class="stat-value" id="s-mood">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Focus</span>
+        <span class="stat-value" id="s-focus">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Current Task</span>
+        <span class="stat-value" id="s-task">—</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Updated</span>
+        <span class="stat-value" id="s-updated">—</span>
+      </div>
+      <div class="prod-bar-wrap">
+        <div class="prod-bar-label">
+          <span>Productivity</span>
+          <span id="s-prod-pct">0%</span>
+        </div>
+        <div class="prod-bar-track">
+          <div class="prod-bar-fill" id="s-prod-bar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats panel -->
+  <div class="panel" id="stats-panel">
+    <div class="panel-title">Stats</div>
+    <div class="panel-body" id="stats-body">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <!-- Logs panel + chat -->
+  <div class="panel" id="logs-panel">
+    <div class="panel-title">Log Stream</div>
+    <div class="panel-body">
+      <div id="log-list"></div>
+    </div>
+
+    <div id="chat-area">
+      <span class="chat-title">Meeting / Notes</span>
+      <div id="chat-messages"></div>
+      <div class="chat-input-row">
+        <input id="chat-input" type="text" placeholder="Add a note or observation…" />
+        <button id="chat-send">Send</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span id="footer-refresh">Auto-refresh: every 5s</span>
+  <span id="footer-last">Last loaded: —</span>
+  <span>ORACLE V5 — Operator Agent Room</span>
+</footer>
+
+<script>
+  const STATUS_PATH = 'agent_status.json';
+  const LOG_PATH    = 'agent_log.jsonl';
+
+  function fmt(ts) {
+    if (!ts) return '—';
+    try { return new Date(ts).toLocaleTimeString(); } catch { return ts; }
+  }
+
+  async function loadStatus() {
+    const r = await fetch(STATUS_PATH + '?_=' + Date.now());
+    if (!r.ok) throw new Error('status fetch failed');
+    return r.json();
+  }
+
+  async function loadLogs() {
+    const r = await fetch(LOG_PATH + '?_=' + Date.now());
+    if (!r.ok) throw new Error('log fetch failed');
+    const text = await r.text();
+    return text.trim().split('\n').filter(Boolean).map(l => {
+      try { return JSON.parse(l); } catch { return null; }
+    }).filter(Boolean);
+  }
+
+  function renderStatus(s) {
+    document.getElementById('s-name').textContent    = s.agent_name   || '—';
+    document.getElementById('s-state').textContent   = s.state        || '—';
+    document.getElementById('s-mood').textContent    = s.mood         || '—';
+    document.getElementById('s-focus').textContent   = s.focus        || '—';
+    document.getElementById('s-task').textContent    = s.current_task || 'none';
+    document.getElementById('s-updated').textContent = fmt(s.updated_at);
+
+    const pct = Math.max(0, Math.min(100, s.productivity || 0));
+    document.getElementById('s-prod-pct').textContent = pct + '%';
+    document.getElementById('s-prod-bar').style.width  = pct + '%';
+
+    const dot = document.getElementById('state-dot');
+    dot.className = 'dot ' + (s.state === 'active' ? 'active' : 'offline');
+  }
+
+  function renderStats(stats) {
+    if (!stats) return;
+    const body = document.getElementById('stats-body');
+    body.innerHTML = Object.entries(stats).map(([k, v]) => `
+      <div class="stat-row">
+        <span class="stat-label">${k.replace(/_/g,' ')}</span>
+        <span class="stat-value">${typeof v === 'string' ? fmt(v) || v : v}</span>
+      </div>`).join('');
+  }
+
+  function renderLogs(entries) {
+    const list = document.getElementById('log-list');
+    list.innerHTML = [...entries].reverse().map(e => `
+      <div class="log-entry">
+        <span class="log-ts">${e.timestamp || ''}</span>
+        <span class="log-event">${e.event || ''}</span>
+        <span class="log-msg">${e.message || ''}</span>
+      </div>`).join('');
+  }
+
+  async function refresh() {
+    try {
+      const [status, logs] = await Promise.all([loadStatus(), loadLogs()]);
+      renderStatus(status);
+      renderStats(status.stats);
+      renderLogs(logs);
+      document.getElementById('footer-last').textContent =
+        'Last loaded: ' + new Date().toLocaleTimeString();
+    } catch (err) {
+      document.getElementById('footer-last').textContent = 'Error: ' + err.message;
+    }
+  }
+
+  // Chat / notes (local session only — no server required)
+  const messages = [];
+  function addChatLine(who, text, isSystem = false) {
+    messages.push({ who, text, isSystem });
+    const el = document.createElement('div');
+    el.className = 'chat-line';
+    el.innerHTML = `<span class="who${isSystem ? ' system' : ''}">${who}</span>${text}`;
+    const box = document.getElementById('chat-messages');
+    box.appendChild(el);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  document.getElementById('chat-send').addEventListener('click', () => {
+    const inp = document.getElementById('chat-input');
+    const val = inp.value.trim();
+    if (!val) return;
+    addChatLine('operator >', val);
+    inp.value = '';
+  });
+  document.getElementById('chat-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('chat-send').click();
+  });
+
+  // Boot
+  addChatLine('system >', 'Agent Room loaded.', true);
+  refresh();
+  setInterval(refresh, 5000);
+</script>
+</body>
+</html>

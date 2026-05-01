@@ -91,3 +91,55 @@ The first version must prove the system is real. Success condition:
 ## Status
 
 > April 2026 — Canon complete. First build slice defined. Initial commit.
+> May 2026 — Operator Agent and Agent Room live.
+
+---
+
+## Agent Room — How to Run
+
+### Run the Operator Agent
+
+```bash
+python3 agents/oracle_operator_agent.py
+```
+
+Type a command at the prompt. Type `exit` to quit.
+
+### First command to test
+
+```
+Read ORACLE canon and return next build step
+```
+
+The agent will return:
+- **Recommendation**
+- **Reasoning**
+- **Missing information**
+- **Next step**
+
+And write structured entries to `agent-room/agent_log.jsonl` and `agent-room/agent_status.json`.
+
+### Open the dashboard
+
+Serve the `agent-room/` directory locally:
+
+```bash
+cd agent-room
+python3 -m http.server 8080
+```
+
+Then open: [http://localhost:8080/dashboard.html](http://localhost:8080/dashboard.html)
+
+The dashboard reads `agent_status.json` and `agent_log.jsonl` every 5 seconds.
+Run the agent in one terminal, watch the dashboard update in your browser.
+
+### Files
+
+| File | Purpose |
+|---|---|
+| `agents/oracle_operator_agent.py` | Bounded Operator Agent — run this |
+| `agent-room/dashboard.html` | Live status surface — open in browser |
+| `agent-room/agent_status.json` | Current agent state |
+| `agent-room/agent_log.jsonl` | Append-only structured log |
+| `canon/oracle_v5_canon.md` | Canon reference for this directory |
+| `canon/agent_rules.md` | Agent rules reference |

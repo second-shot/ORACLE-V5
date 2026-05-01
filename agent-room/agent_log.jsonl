@@ -1,0 +1,1 @@
+{"timestamp": "2026-05-01T10:00:00Z", "event": "agent_started", "agent": "ORACLE Operator Agent", "message": "Agent initialised. Awaiting first command.", "state": "idle"}

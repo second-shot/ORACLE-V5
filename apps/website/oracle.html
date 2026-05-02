@@ -45,25 +45,25 @@
   <main class="page">
 
     <!-- Hero -->
-    <section class="hero" style="min-height: 55vh;">
+    <section class="hero hero-medium" aria-label="Oracle overview">
       <p class="hero-eyebrow">The System</p>
       <h1 class="hero-heading">Oracle</h1>
       <p class="hero-sub">Oracle is the operating system. It holds the logic that makes a distributed creative system coherent. Decisions have addresses. Standards are real, not aspirational. Work is traceable from intention to output.</p>
     </section>
 
     <!-- Core premise -->
-    <section class="section" style="background: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);">
+    <section class="section section-alt">
       <div class="container">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: start;">
+        <div class="grid-2-col">
           <div>
             <span class="label">The Core Premise</span>
-            <h2 class="section-title" style="margin-bottom: var(--space-6);">Built against the invisible infrastructure problem</h2>
-            <p style="color: var(--color-text-muted); font-size: var(--text-base); line-height: 1.7; margin-bottom: var(--space-4);">Most creative systems fail not because the work is bad — but because the infrastructure is invisible. Rules live in people's heads. Decisions are not logged. Standards drift under pressure.</p>
-            <p style="color: var(--color-text-muted); font-size: var(--text-base); line-height: 1.7;">Oracle externalises the logic. It makes operating rules visible, versioned, and navigable. It creates a house that work can actually live in.</p>
+            <h2 class="section-title">Built against the invisible infrastructure problem</h2>
+            <p class="body-copy mb-4">Most creative systems fail not because the work is bad — but because the infrastructure is invisible. Rules live in people's heads. Decisions are not logged. Standards drift under pressure.</p>
+            <p class="body-copy">Oracle externalises the logic. It makes operating rules visible, versioned, and navigable. It creates a house that work can actually live in.</p>
           </div>
           <div>
             <span class="label">What Oracle Is Not</span>
-            <ul class="rule-list" style="margin-top: var(--space-4);">
+            <ul class="rule-list">
               <li class="rule-item">
                 <span class="rule-num">—</span>
                 <span class="rule-text">Not a to-do list manager</span>
@@ -76,9 +76,9 @@
                 <span class="rule-num">—</span>
                 <span class="rule-text">Not a project management tool bolted onto a wiki</span>
               </li>
-              <li class="rule-item" style="margin-top: var(--space-4);">
-                <span class="rule-num" style="color: var(--color-primary);">→</span>
-                <span class="rule-text" style="color: var(--color-text);">A system that contains all of those functions as outputs of a coherent operating logic</span>
+              <li class="rule-item mt-4">
+                <span class="rule-num rule-num-arrow">→</span>
+                <span class="rule-text rule-text-hi">A system that contains all of those functions as outputs of a coherent operating logic</span>
               </li>
             </ul>
           </div>
@@ -94,28 +94,28 @@
           <h2 class="section-title">The three-ring structure</h2>
           <p class="section-desc">Every ring depends on the one inside it. No ring operates correctly without its centre.</p>
         </div>
-        <div class="rings">
-          <div class="ring ring-1">
+        <div class="rings-nested">
+          <div class="ring-outer">
             <p class="ring-label">Ring One · Source of Truth</p>
             <h3 class="ring-title">System Truth — oracle/docs/</h3>
             <p class="ring-desc">Vision, architecture, standards, workflows, backlog, memory. The law of the land. Not written for Mia — written for Oracle itself. Mia reads it to understand the context she operates in.</p>
-          </div>
-          <div class="ring" style="margin-inline: var(--space-6);">
-            <p class="ring-label">Ring Two · Agent Instruction</p>
-            <h3 class="ring-title">Agent Instruction — oracle/mia/instructions/ + prompts/</h3>
-            <p class="ring-desc">Seven instruction files define how Mia behaves inside the system truth. Prompts define how she enters different operating modes: system, planner, reviewer.</p>
-          </div>
-          <div class="ring" style="margin-inline: var(--space-12);">
-            <p class="ring-label">Ring Three · Execution Discipline</p>
-            <h3 class="ring-title">Execution — templates/ + checklists/ + missions.md</h3>
-            <p class="ring-desc">Prevents drift, fog, and fake completion. Mia does not improvise output format. She does not self-certify completion. Templates enforce structure. Checklists enforce verification.</p>
+            <div class="ring-middle">
+              <p class="ring-label">Ring Two · Agent Instruction</p>
+              <h3 class="ring-title">Agent Instruction — oracle/mia/instructions/ + prompts/</h3>
+              <p class="ring-desc">Seven instruction files define how Mia behaves inside the system truth. Prompts define how she enters different operating modes: system, planner, reviewer.</p>
+              <div class="ring-inner">
+                <p class="ring-label">Ring Three · Execution Discipline</p>
+                <h3 class="ring-title">Execution — templates/ + checklists/ + missions.md</h3>
+                <p class="ring-desc">Prevents drift, fog, and fake completion. Mia does not improvise output format. She does not self-certify completion. Templates enforce structure. Checklists enforce verification.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- System docs -->
-    <section class="section" style="background: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);">
+    <section class="section section-alt">
       <div class="container">
         <div class="section-header">
           <span class="label">System Docs</span>
@@ -157,36 +157,12 @@
       </div>
     </section>
 
-    <!-- Navigation order -->
-    <section class="section">
-      <div class="container-default">
-        <div class="section-header">
-          <span class="label">Navigation Order</span>
-          <h2 class="section-title">How Mia reads Oracle</h2>
-          <p class="section-desc">Fixed sequence. Deviation must be logged and justified.</p>
-        </div>
-        <div class="code-block">
-<span class="dim">// Mia's mandatory reading order before any mission</span>
-
-<span class="hi">1.</span>  oracle/docs/vision.md
-<span class="hi">2.</span>  oracle/docs/architecture.md
-<span class="hi">3.</span>  oracle/docs/standards.md
-<span class="hi">4.</span>  oracle/docs/backlog.md
-<span class="hi">5.</span>  Relevant mission in oracle/mia/missions.md
-<span class="hi">6.</span>  Relevant instruction in oracle/mia/instructions/
-<span class="dim">
-→   Output via template
-→   Review via checklist
-→   Update memory if system changed</span></div>
-      </div>
-    </section>
-
     <!-- CTA -->
-    <section class="section" style="background: var(--color-surface); border-top: 1px solid var(--color-divider);">
-      <div class="container-default" style="text-align: center; max-width: 580px; margin-inline: auto;">
-        <span class="label" style="display: block; text-align: center;">Next</span>
+    <section class="section section-alt-top">
+      <div class="container-default cta-block">
+        <span class="label label-center">Next</span>
         <h2 class="section-title">Meet Mia</h2>
-        <p class="section-desc" style="margin-inline: auto; margin-bottom: var(--space-8);">Mia is the active intelligence inside Oracle. She does not define it. She reads it and acts within it.</p>
+        <p class="section-desc">Mia is the active intelligence inside Oracle. She does not define it. She reads it and acts within it.</p>
         <a href="mia.html" class="btn btn-primary">Meet Mia →</a>
       </div>
     </section>
@@ -201,7 +177,7 @@
         <li><a href="mia.html">Mia</a></li>
         <li><a href="missions.html">Missions</a></li>
       </ul>
-      <span class="footer-note">Oracle is the system. Mia is the operator.</span>
+      <span class="footer-note">Structured for clarity. Built for continuity.</span>
     </div>
   </footer>
 

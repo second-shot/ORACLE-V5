@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mia — The Active Agent</title>
-  <meta name="description" content="Mia is the active intelligence inside Oracle. She maps, audits, executes, records, and reports. Seven instruction files define how she moves.">
+  <meta name="description" content="Mia is the active intelligence inside Oracle. She maps, identifies gaps, executes missions, and records what matters.">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600,700&f[]=satoshi@400,500,700&f[]=jet-brains-mono@400,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/tokens.css">
@@ -45,136 +45,38 @@
   <main class="page">
 
     <!-- Hero -->
-    <section class="hero" style="min-height: 55vh;">
+    <section class="hero hero-medium" aria-label="Mia overview">
       <p class="hero-eyebrow">The Agent</p>
       <h1 class="hero-heading">Mia</h1>
       <p class="hero-sub">Mia is the active intelligence inside Oracle. She does not replace Oracle. She operates within it. Her prime directive: reduce confusion, increase coherence, leave behind usable structure.</p>
     </section>
 
     <!-- What Mia does / does not -->
-    <section class="section" style="background: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);">
+    <section class="section section-alt">
       <div class="container">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+        <div class="grid-2-col">
           <div>
             <span class="label">What Mia Does</span>
-            <ul class="rule-list" style="margin-top: var(--space-5);">
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-primary);">✓</span><span class="rule-text">Maps current reality</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-primary);">✓</span><span class="rule-text">Identifies gaps</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-primary);">✓</span><span class="rule-text">Proposes improvements</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-primary);">✓</span><span class="rule-text">Executes defined missions</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-primary);">✓</span><span class="rule-text">Records lessons and decisions</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-primary);">✓</span><span class="rule-text">Keeps standards visible</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-primary);">✓</span><span class="rule-text">Reports clearly</span></li>
+            <ul class="rule-list">
+              <li class="rule-item"><span class="rule-num rule-num-pos">✓</span><span class="rule-text">Maps current reality</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-pos">✓</span><span class="rule-text">Identifies gaps</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-pos">✓</span><span class="rule-text">Proposes improvements</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-pos">✓</span><span class="rule-text">Executes defined missions</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-pos">✓</span><span class="rule-text">Records lessons and decisions</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-pos">✓</span><span class="rule-text">Keeps standards visible</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-pos">✓</span><span class="rule-text">Reports clearly</span></li>
             </ul>
           </div>
           <div>
             <span class="label">What Mia Does Not Do</span>
-            <ul class="rule-list" style="margin-top: var(--space-5);">
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-text-faint);">✗</span><span class="rule-text">Invent facts</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-text-faint);">✗</span><span class="rule-text">Silently change system rules</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-text-faint);">✗</span><span class="rule-text">Hide uncertainty</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-text-faint);">✗</span><span class="rule-text">Blur proposal and decision</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-text-faint);">✗</span><span class="rule-text">Override owner authority</span></li>
-              <li class="rule-item"><span class="rule-num" style="color:var(--color-text-faint);">✗</span><span class="rule-text">Pretend progress where there is only motion</span></li>
+            <ul class="rule-list">
+              <li class="rule-item"><span class="rule-num rule-num-neg">✗</span><span class="rule-text">Invent facts</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-neg">✗</span><span class="rule-text">Silently change system rules</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-neg">✗</span><span class="rule-text">Hide uncertainty</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-neg">✗</span><span class="rule-text">Blur proposal and decision</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-neg">✗</span><span class="rule-text">Override owner authority</span></li>
+              <li class="rule-item"><span class="rule-num rule-num-neg">✗</span><span class="rule-text">Pretend progress where there is only motion</span></li>
             </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10 Operating Rules -->
-    <section class="section">
-      <div class="container-default">
-        <div class="section-header">
-          <span class="label">Operating Rules</span>
-          <h2 class="section-title">Mia's ten laws</h2>
-          <p class="section-desc">Not preferences. Operational constraints. Each one exists because a system without it breaks in a specific, predictable way.</p>
-        </div>
-        <div class="grid-2">
-          <ul class="rule-list">
-            <li class="rule-item">
-              <span class="rule-num">01</span>
-              <span class="rule-text"><strong>Tell the truth in layers.</strong> Fact, assumption, interpretation, recommendation — separated.</span>
-            </li>
-            <li class="rule-item">
-              <span class="rule-num">02</span>
-              <span class="rule-text"><strong>Preserve intent while improving structure.</strong> The goal does not change. The shape of the work does.</span>
-            </li>
-            <li class="rule-item">
-              <span class="rule-num">03</span>
-              <span class="rule-text"><strong>Make work visible.</strong> Leave clear traces of what changed and why.</span>
-            </li>
-            <li class="rule-item">
-              <span class="rule-num">04</span>
-              <span class="rule-text"><strong>Prefer precision over performance.</strong> No decorative vagueness.</span>
-            </li>
-            <li class="rule-item">
-              <span class="rule-num">05</span>
-              <span class="rule-text"><strong>No silent drift.</strong> If a pattern changes, mark it.</span>
-            </li>
-          </ul>
-          <ul class="rule-list">
-            <li class="rule-item">
-              <span class="rule-num">06</span>
-              <span class="rule-text"><strong>Escalate structural uncertainty.</strong> Doubt at scale is not Mia's problem to solve alone.</span>
-            </li>
-            <li class="rule-item">
-              <span class="rule-num">07</span>
-              <span class="rule-text"><strong>Convert repeated friction into standards, workflows, or missions.</strong></span>
-            </li>
-            <li class="rule-item">
-              <span class="rule-num">08</span>
-              <span class="rule-text"><strong>End meaningful work with a concrete next action.</strong> Not a vague recommendation.</span>
-            </li>
-            <li class="rule-item">
-              <span class="rule-num">09</span>
-              <span class="rule-text"><strong>Document before memory decays.</strong> The window closes faster than it feels.</span>
-            </li>
-            <li class="rule-item">
-              <span class="rule-num">10</span>
-              <span class="rule-text"><strong>Build for continuity, not just speed.</strong></span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7 instruction files -->
-    <section class="section" style="background: var(--color-surface); border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);">
-      <div class="container">
-        <div class="section-header">
-          <span class="label">The Spine</span>
-          <h2 class="section-title">Seven instruction files</h2>
-          <p class="section-desc">Mia's core intelligence lives here. Prompts, templates, and checklists support the instructions — but do not replace them.</p>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 0; border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden;">
-          <div style="display: grid; grid-template-columns: 120px 1fr; gap: var(--space-6); padding: var(--space-6); border-bottom: 1px solid var(--color-divider); align-items: start;">
-            <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-primary); letter-spacing: 0.1em;">01-identity</span>
-            <div><span style="font-weight: 600; color: var(--color-text); font-size: var(--text-sm);">Who Mia is</span><p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-1);">Purpose, nature, prime directive. The ground she stands on.</p></div>
-          </div>
-          <div style="display: grid; grid-template-columns: 120px 1fr; gap: var(--space-6); padding: var(--space-6); border-bottom: 1px solid var(--color-divider); align-items: start;">
-            <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-primary); letter-spacing: 0.1em;">02-role</span>
-            <div><span style="font-weight: 600; color: var(--color-text); font-size: var(--text-sm);">Role Boundaries</span><p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-1);">What she owns, what she supports, what she cannot decide alone.</p></div>
-          </div>
-          <div style="display: grid; grid-template-columns: 120px 1fr; gap: var(--space-6); padding: var(--space-6); border-bottom: 1px solid var(--color-divider); align-items: start;">
-            <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-primary); letter-spacing: 0.1em;">03-rules</span>
-            <div><span style="font-weight: 600; color: var(--color-text); font-size: var(--text-sm);">Operating Rules</span><p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-1);">Ten laws. Truth, documentation, no silent drift.</p></div>
-          </div>
-          <div style="display: grid; grid-template-columns: 120px 1fr; gap: var(--space-6); padding: var(--space-6); border-bottom: 1px solid var(--color-divider); align-items: start;">
-            <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-primary); letter-spacing: 0.1em;">04-loop</span>
-            <div><span style="font-weight: 600; color: var(--color-text); font-size: var(--text-sm);">Mission Loop</span><p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-1);">Observe → Map → Decide or Escalate → Execute → Record.</p></div>
-          </div>
-          <div style="display: grid; grid-template-columns: 120px 1fr; gap: var(--space-6); padding: var(--space-6); border-bottom: 1px solid var(--color-divider); align-items: start;">
-            <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-primary); letter-spacing: 0.1em;">05-reporting</span>
-            <div><span style="font-weight: 600; color: var(--color-text); font-size: var(--text-sm);">Reporting</span><p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-1);">How Mia speaks back to Oracle. Current state, findings, risks, recommendation, next action.</p></div>
-          </div>
-          <div style="display: grid; grid-template-columns: 120px 1fr; gap: var(--space-6); padding: var(--space-6); border-bottom: 1px solid var(--color-divider); align-items: start;">
-            <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-primary); letter-spacing: 0.1em;">06-memory</span>
-            <div><span style="font-weight: 600; color: var(--color-text); font-size: var(--text-sm);">Memory &amp; Decisions</span><p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-1);">How Mia stores lessons. How decisions are logged. What becomes durable memory.</p></div>
-          </div>
-          <div style="display: grid; grid-template-columns: 120px 1fr; gap: var(--space-6); padding: var(--space-6); align-items: start;">
-            <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-primary); letter-spacing: 0.1em;">07-review</span>
-            <div><span style="font-weight: 600; color: var(--color-text); font-size: var(--text-sm);">Review &amp; Escalation</span><p style="color: var(--color-text-muted); font-size: var(--text-sm); margin-top: var(--space-1);">How Mia checks quality. When she pauses. When she escalates to human review.</p></div>
           </div>
         </div>
       </div>
@@ -182,10 +84,10 @@
 
     <!-- Success condition -->
     <section class="section">
-      <div class="container-default" style="text-align: center; max-width: 600px; margin-inline: auto;">
-        <span class="label" style="display: block; text-align: center;">Success Condition</span>
+      <div class="container-default cta-block">
+        <span class="label label-center">Success Condition</span>
         <h2 class="section-title">Mia succeeds when Oracle becomes harder to fracture</h2>
-        <p class="section-desc" style="margin-inline: auto; margin-bottom: var(--space-8);">Easier to understand. Easier to improve. Harder to break. That is the measure.</p>
+        <p class="section-desc">Easier to understand. Easier to improve. Harder to break. That is the measure.</p>
         <a href="missions.html" class="btn btn-primary">See Her Missions →</a>
       </div>
     </section>
@@ -200,7 +102,7 @@
         <li><a href="mia.html">Mia</a></li>
         <li><a href="missions.html">Missions</a></li>
       </ul>
-      <span class="footer-note">Oracle is the system. Mia is the operator.</span>
+      <span class="footer-note">Structured for clarity. Built for continuity.</span>
     </div>
   </footer>
 

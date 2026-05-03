@@ -26,12 +26,17 @@ She operates within it.
 - `role.md` — responsibilities and boundaries
 - `operating-rules.md` — behavioral law
 - `system.md` — execution model
+- `public-behavior.md` — public-facing behavior spec
 - `missions.md` — active mission framework
 - `memory.md` — Mia's lessons and recurring patterns
 - `templates/` — reporting and decision formats
   - `report-template.md`
   - `decision-template.md`
 - `prompts/` — prompt logic
+  - `system.md` — internal system prompt
+  - `public.md` — public-facing prompt
+  - `planner.md` — planning prompt
+  - `reviewer.md` — review prompt
 - `checklists/` — review rituals
 
 ## Prime Directive

@@ -26,6 +26,7 @@ frontend:
   - changed-files:
     - any-glob-to-any-file:
       - 'src/**'
+      - 'apps/**'
       - 'index.html'
       - '*.html'
       - 'vite.config.js'

@@ -65,6 +65,17 @@ Each mission must include:
   - lessons recorded
   - memory format used consistently
 
+## MIA-008 — Audit missions.html for accidental internal-doc exposure
+- Priority: P1
+- Status: backlog
+- Owner: Mia
+- Purpose: PR #42 audited `oracle.html` and removed internal-doc leakage. `missions.html` was explicitly named as the next page to review but the audit was deferred. Confirm no `oracle/docs/` file paths, internal checklists, or completion-evidence code blocks remain public.
+- Output: either a clean-bill note in `oracle/mia/reports/` or a follow-up PR removing any leaked content
+- Definition of done:
+  - `missions.html` inspected against the same criteria used for `oracle.html` in PR #42
+  - any leaked internal content removed
+  - result logged
+
 ## MIA-006 — Reconcile Operator Agent with Oracle Layer
 - Priority: P2
 - Status: backlog

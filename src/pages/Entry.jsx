@@ -7,7 +7,9 @@ export default function Entry() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    navigate("/run", { state: { initial: value } });
+    const trimmed = value.trim();
+    if (!trimmed) return;
+    navigate("/run", { state: { initial: trimmed } });
   }
 
   return (
@@ -36,7 +38,7 @@ export default function Entry() {
             onChange={(e) => setValue(e.target.value)}
             autoFocus
           />
-          <button className="entry__cta" type="submit">
+          <button className="entry__cta" type="submit" disabled={!value.trim()}>
             Proceed
           </button>
         </form>

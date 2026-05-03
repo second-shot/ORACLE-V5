@@ -1,30 +1,52 @@
-import { Link } from "react-router-dom";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
+  const [input, setInput] = useState("");
+  const textareaRef = useRef(null);
+  const navigate = useNavigate();
+
+  function proceed(e) {
+    e.preventDefault();
+    const seed = input.trim();
+    if (!seed) return;
+    navigate("/run", { state: { seed }, unstable_viewTransition: true });
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      proceed(e);
+    }
+  }
+
   return (
-    <main className="landing">
-      <section className="landing-hero" aria-label="Introduction">
-        <p className="landing-eyebrow">V5 · Active</p>
-        <h1 className="landing-heading">
-          Oracle is the system.<br />
-          <em>Mia</em> is the operator.
-        </h1>
-        <p className="landing-sub">
-          A living framework for standards, missions, memory, and coherent growth.
-          Not a tool. An operating environment.
-        </p>
-        <div className="landing-actions">
-          <Link to="/run" className="landing-btn landing-btn--primary">
-            Enter Oracle
-          </Link>
-          <Link to="/home" className="landing-btn landing-btn--ghost">
-            Living Home
-          </Link>
-        </div>
-        <p className="landing-ground">
-          Oracle turns raw input into structured actions, proposals, and archived decisions.
-        </p>
-      </section>
+    <main className="entry">
+      <div className="entry-orb" aria-hidden="true" />
+      <form className="entry-form" onSubmit={proceed}>
+        <label htmlFor="entry-input" className="sr-only">
+          What are we initiating?
+        </label>
+        <textarea
+          id="entry-input"
+          ref={textareaRef}
+          className="entry-input"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="What are we initiating?"
+          rows={1}
+          autoFocus
+        />
+        <button
+          type="submit"
+          className="entry-proceed"
+          disabled={!input.trim()}
+          aria-label="Proceed"
+        >
+          →
+        </button>
+      </form>
     </main>
   );
 }

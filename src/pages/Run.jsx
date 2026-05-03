@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { SurfaceCard } from "../components/SurfaceCard.jsx";
 import { InputHistory } from "../components/InputHistory.jsx";
@@ -18,6 +18,17 @@ export default function Run() {
   const textareaRef = useRef(null);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Pre-fill input with seed passed from the Entry screen, then clear it from
+  // navigation state so a back/forward visit doesn't re-populate stale text.
+  useEffect(() => {
+    const seed = location.state?.seed;
+    if (seed) {
+      setInput(seed);
+      navigate("/run", { replace: true, state: {} });
+    }
+  }, [location.state, navigate]);
 
   useEffect(() => {
     if (textareaRef.current) {

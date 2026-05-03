@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink, Outlet } from "react-router-dom";
 import { ControlPanel } from "./components/ControlPanel.jsx";
 import Landing from "./pages/Landing.jsx";
 import Run from "./pages/Run.jsx";
@@ -49,22 +49,7 @@ function Shell() {
           </NavLink>
         </nav>
       </header>
-
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/run" element={<Run />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/output/:id" element={<OutputPage />} />
-        <Route path="/missions" element={<Missions />} />
-        <Route
-          path="/panel"
-          element={
-            <main className="oracle-shell">
-              <ControlPanel />
-            </main>
-          }
-        />
-      </Routes>
+      <Outlet />
     </>
   );
 }
@@ -72,7 +57,23 @@ function Shell() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Shell />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route element={<Shell />}>
+          <Route path="/run" element={<Run />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/output/:id" element={<OutputPage />} />
+          <Route path="/missions" element={<Missions />} />
+          <Route
+            path="/panel"
+            element={
+              <main className="oracle-shell">
+                <ControlPanel />
+              </main>
+            }
+          />
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }

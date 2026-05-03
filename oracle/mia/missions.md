@@ -76,7 +76,7 @@ Each mission must include:
   - any leaked internal content removed
   - result logged
 
-
+## MIA-006 — Reconcile Operator Agent with Oracle Layer
 - Priority: P2
 - Status: backlog
 - Owner: Mia

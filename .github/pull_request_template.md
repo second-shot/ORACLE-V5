@@ -6,7 +6,7 @@ What does this PR do? One or two sentences.
 ## Type
 - [ ] oracle/docs/ — system truth change
 - [ ] oracle/mia/ — agent layer change
-- [ ] src/ — frontend change
+- [ ] apps/website/ — frontend change
 - [ ] agents/ — operator agent change
 - [ ] canon/ — legacy canon update
 - [ ] .github/ — repo governance change

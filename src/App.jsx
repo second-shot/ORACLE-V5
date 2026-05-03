@@ -1,124 +1,78 @@
-import { useState, useRef, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { SurfaceCard } from "./components/SurfaceCard.jsx";
-import { InputHistory } from "./components/InputHistory.jsx";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import { ControlPanel } from "./components/ControlPanel.jsx";
-import { runOraclePipeline } from "./lib/oracleEngine.js";
-import {
-  storeInArchive,
-  findRelated,
-  loadInputHistory,
-  pushInputHistory,
-} from "./lib/oracleArchive.js";
+import Landing from "./pages/Landing.jsx";
+import Run from "./pages/Run.jsx";
+import Home from "./pages/Home.jsx";
+import OutputPage from "./pages/OutputPage.jsx";
+import Missions from "./pages/Missions.jsx";
 
-export default function App() {
-  const [view, setView] = useState("oracle"); // "oracle" | "panel"
-  const [input, setInput] = useState("");
-  const [objects, setObjects] = useState([]);
-  const [history, setHistory] = useState(() => loadInputHistory());
-  const textareaRef = useRef(null);
-
-  // Auto-resize textarea
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [input]);
-
-  function submitInput(raw) {
-    if (!raw) return;
-
-    const { object, archiveWriter } = runOraclePipeline(raw);
-
-    // Attach memory match from archive before storing
-    const match = findRelated(object);
-    const enriched = { ...object, memoryMatch: match };
-
-    archiveWriter(enriched);
-    setObjects((prev) => [enriched, ...prev]);
-    setHistory((prev) => pushInputHistory(raw, prev));
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const raw = input.trim();
-    if (!raw) return;
-    submitInput(raw);
-    setInput("");
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit(e);
-    }
-  }
-
+function Shell() {
   return (
-    <main className="oracle-shell">
+    <>
       <header className="oracle-header">
-        <span className="oracle-wordmark">ORACLE</span>
+        <NavLink to="/" className="oracle-wordmark" aria-label="Oracle home">
+          ORACLE
+        </NavLink>
         <span className="oracle-version">V5</span>
-        <nav className="oracle-nav" aria-label="View switcher">
-          <button
-            className={`oracle-nav__btn ${view === "oracle" ? "oracle-nav__btn--active" : ""}`}
-            onClick={() => setView("oracle")}
-            aria-current={view === "oracle" ? "page" : undefined}
+        <nav className="oracle-nav" aria-label="Main navigation">
+          <NavLink
+            to="/run"
+            className={({ isActive }) =>
+              `oracle-nav__btn${isActive ? " oracle-nav__btn--active" : ""}`
+            }
           >
-            Oracle
-          </button>
-          <button
-            className={`oracle-nav__btn ${view === "panel" ? "oracle-nav__btn--active" : ""}`}
-            onClick={() => setView("panel")}
-            aria-current={view === "panel" ? "page" : undefined}
+            Run
+          </NavLink>
+          <NavLink
+            to="/home"
+            className={({ isActive }) =>
+              `oracle-nav__btn${isActive ? " oracle-nav__btn--active" : ""}`
+            }
           >
-            Control Panel
-          </button>
+            Home
+          </NavLink>
+          <NavLink
+            to="/missions"
+            className={({ isActive }) =>
+              `oracle-nav__btn${isActive ? " oracle-nav__btn--active" : ""}`
+            }
+          >
+            Missions
+          </NavLink>
+          <NavLink
+            to="/panel"
+            className={({ isActive }) =>
+              `oracle-nav__btn${isActive ? " oracle-nav__btn--active" : ""}`
+            }
+          >
+            Panel
+          </NavLink>
         </nav>
       </header>
 
-      {view === "panel" && <ControlPanel />}
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/run" element={<Run />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/output/:id" element={<OutputPage />} />
+        <Route path="/missions" element={<Missions />} />
+        <Route
+          path="/panel"
+          element={
+            <main className="oracle-shell">
+              <ControlPanel />
+            </main>
+          }
+        />
+      </Routes>
+    </>
+  );
+}
 
-      {view === "oracle" && (
-        <>
-          <section className="oracle-input-zone">
-            <form onSubmit={handleSubmit} className="oracle-form">
-              <label htmlFor="oracle-input" className="sr-only">
-                Enter raw input
-              </label>
-              <textarea
-                id="oracle-input"
-                ref={textareaRef}
-                className="oracle-textarea"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Enter raw input…"
-                rows={1}
-                autoFocus
-              />
-              <button
-                type="submit"
-                className="oracle-submit"
-                disabled={!input.trim()}
-                aria-label="Run Oracle"
-              >
-                Run
-              </button>
-            </form>
-            <InputHistory history={history} onSelect={submitInput} />
-          </section>
-
-          <section className="oracle-output-zone" aria-live="polite" aria-label="Oracle outputs">
-            <AnimatePresence>
-              {objects.map((obj) => (
-                <SurfaceCard key={obj.id} object={obj} />
-              ))}
-            </AnimatePresence>
-          </section>
-        </>
-      )}
-    </main>
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Shell />
+    </BrowserRouter>
   );
 }

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import { ControlPanel } from "./components/ControlPanel.jsx";
-import Landing from "./pages/Landing.jsx";
+import Entry from "./pages/Entry.jsx";
 import Run from "./pages/Run.jsx";
 import Home from "./pages/Home.jsx";
 import OutputPage from "./pages/OutputPage.jsx";
@@ -51,7 +51,6 @@ function Shell() {
       </header>
 
       <Routes>
-        <Route path="/" element={<Landing />} />
         <Route path="/run" element={<Run />} />
         <Route path="/home" element={<Home />} />
         <Route path="/output/:id" element={<OutputPage />} />
@@ -72,7 +71,10 @@ function Shell() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Shell />
+      <Routes>
+        <Route path="/" element={<Entry />} />
+        <Route path="/*" element={<Shell />} />
+      </Routes>
     </BrowserRouter>
   );
 }

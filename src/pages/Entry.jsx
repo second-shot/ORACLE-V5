@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Entry() {
   const navigate = useNavigate();
+  const [value, setValue] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    navigate("/run");
+    navigate("/run", { state: { initial: value } });
   }
 
   return (
@@ -30,6 +32,8 @@ export default function Entry() {
             className="entry__input"
             type="text"
             placeholder="What are we initiating?"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
             autoFocus
           />
           <button className="entry__cta" type="submit">

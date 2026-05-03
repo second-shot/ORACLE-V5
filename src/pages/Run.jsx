@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { SurfaceCard } from "../components/SurfaceCard.jsx";
 import { InputHistory } from "../components/InputHistory.jsx";
@@ -18,6 +18,16 @@ export default function Run() {
   const textareaRef = useRef(null);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // pre-populate from Entry navigation state once on mount
+  useEffect(() => {
+    const initial = location.state?.initial;
+    if (initial) {
+      setInput(initial);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (textareaRef.current) {

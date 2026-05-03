@@ -104,6 +104,15 @@ Each mission must include:
 
 ## Done
 
+## MIA-009 — Define Mia Public Behavior Contract
+- Priority: P1
+- Status: done
+- Owner: Mia
+- Completed: 2026-05-03
+- Output: `oracle/mia/public-behavior.md`, `oracle/mia/prompts/public.md`, updated `oracle/mia/README.md`
+- Checklist passed: ✓
+- Next action: wire `oracle/mia/prompts/public.md` into Mia public-session activation; verify 4-part response shape in one live interaction test
+
 ## MIA-001 — State of Oracle Audit
 - Priority: P1
 - Status: done

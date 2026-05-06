@@ -1,2 +1,38 @@
+# ── Build outputs ─────────────────────────────────────────────────────────────
 dist/
+build/
+.output/
+out/
+
+# ── Dependencies ──────────────────────────────────────────────────────────────
 node_modules/
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.staging
+*.pem
+*.key
+
+# ── Cache & tooling ───────────────────────────────────────────────────────────
+.cache/
+.vite/
+.turbo/
+.eslintcache
+*.tsbuildinfo
+
+# ── Editor & OS ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

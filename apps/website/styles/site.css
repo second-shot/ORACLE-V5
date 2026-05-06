@@ -422,15 +422,72 @@
 .rings {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 0;
+  position: relative;
 }
+
+/* Vertical connector line running through all three rings */
+.rings::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--space-6) - 1px);
+  top: var(--space-8);
+  bottom: var(--space-8);
+  width: 1px;
+  background: linear-gradient(to bottom, var(--color-primary), var(--color-border));
+  pointer-events: none;
+}
+
 .ring {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-5) var(--space-6) var(--space-5) calc(var(--space-6) + var(--space-8));
   background: var(--color-surface);
+  position: relative;
+  margin-bottom: var(--space-2);
 }
-.ring-1 { border-color: var(--color-primary); background: var(--color-primary-dim); }
+
+/* Dot connector on the vertical line */
+.ring::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--space-6) - 4px);
+  top: var(--space-7);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border);
+  border: 1.5px solid var(--color-bg);
+}
+
+/* Ring One — outermost, widest, primary accent */
+.ring-1 {
+  border-color: var(--color-primary);
+  background: var(--color-primary-dim);
+  margin-inline: 0;
+}
+.ring-1::before {
+  background: var(--color-primary);
+}
+
+/* Ring Two — inset from Ring One */
+.ring-2 {
+  margin-inline-start: var(--space-8);
+}
+.ring-2::before {
+  background: var(--color-text-faint); /* fallback for browsers without color-mix() */
+  background: color-mix(in srgb, var(--color-primary) 55%, var(--color-border));
+}
+
+/* Ring Three — innermost, most inset */
+.ring-3 {
+  margin-inline-start: var(--space-16);
+  margin-bottom: 0;
+}
+.ring-3::before {
+  background: var(--color-border);
+}
+
 .ring-label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);

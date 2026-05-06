@@ -23,6 +23,15 @@
 
   --radius:    6px;
   --radius-sm: 4px;
+
+  /* Entry state tokens */
+  --entry-bg-a:     rgba(141, 220, 255, 0.14);
+  --entry-bg-b:     rgba(181, 141, 255, 0.12);
+  --entry-panel:    rgba(12, 16, 24, 0.72);
+  --entry-border:   rgba(145, 190, 255, 0.16);
+  --entry-accent:   #8ddcff;
+  --entry-accent-2: #b58dff;
+  --entry-muted:    #a6b0c2;
 }
 
 /* ── Screen reader only ── */
@@ -986,16 +995,6 @@ html, body {
 }
 
 /* ── Entry state (/) ─────────────────────────────────────────────────────── */
-
-:root {
-  --entry-bg-a:     rgba(141, 220, 255, 0.14);
-  --entry-bg-b:     rgba(181, 141, 255, 0.12);
-  --entry-panel:    rgba(12, 16, 24, 0.72);
-  --entry-border:   rgba(145, 190, 255, 0.16);
-  --entry-accent:   #8ddcff;
-  --entry-accent-2: #b58dff;
-  --entry-muted:    #a6b0c2;
-}
 
 .entry {
   min-height: 100dvh;

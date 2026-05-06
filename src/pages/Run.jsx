@@ -11,23 +11,14 @@ import {
 } from "../lib/oracleArchive.js";
 
 export default function Run() {
-  const [input, setInput] = useState("");
+  const location = useLocation();
+  const [input, setInput] = useState(location.state?.initial ?? "");
   const [objects, setObjects] = useState([]);
   const [history, setHistory] = useState(() => loadInputHistory());
   const [dragOver, setDragOver] = useState(false);
   const textareaRef = useRef(null);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // pre-populate from Entry navigation state once on mount
-  useEffect(() => {
-    const initial = location.state?.initial;
-    if (initial) {
-      setInput(initial);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (textareaRef.current) {

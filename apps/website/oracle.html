@@ -94,23 +94,41 @@
           <h2 class="section-title">The three-ring structure</h2>
           <p class="section-desc">Every ring depends on the one inside it. No ring operates correctly without its centre.</p>
         </div>
-        <div class="rings-nested">
-          <div class="ring-outer">
-            <p class="ring-label">Ring One · Source of Truth</p>
-            <h3 class="ring-title">System Truth</h3>
-            <p class="ring-desc">Vision, architecture, standards, workflows, backlog, memory. The law of the land. Not written for Mia — written for Oracle itself. Mia reads it to understand the context she operates in.</p>
-            <div class="ring-middle">
-              <p class="ring-label">Ring Two · Agent Instruction</p>
-              <h3 class="ring-title">Agent Instruction</h3>
-              <p class="ring-desc">Defines how Mia behaves inside the system truth and how she enters different operating modes.</p>
-              <div class="ring-inner">
-                <p class="ring-label">Ring Three · Execution Discipline</p>
-                <h3 class="ring-title">Execution</h3>
-                <p class="ring-desc">Prevents drift, fog, and fake completion. Mia does not improvise output format. She does not self-certify completion. Templates enforce structure. Checklists enforce verification.</p>
-              </div>
-            </div>
-          </div>
+
+        <!-- Concentric-circle diagram (visual only) -->
+        <div class="rings-visual" role="img" aria-label="Three concentric rings: System Truth (outer), Agent Instruction (middle), Execution (inner)">
+          <div class="rings-visual__ring rings-visual__ring--1"></div>
+          <div class="rings-visual__ring rings-visual__ring--2"></div>
+          <div class="rings-visual__ring rings-visual__ring--3"></div>
         </div>
+
+        <!-- Ring descriptions as flat cards -->
+        <ol class="ring-cards">
+          <li class="ring-card ring-card--1">
+            <span class="ring-card__num">1</span>
+            <div class="ring-card__content">
+              <p class="ring-card__label">Ring One · Source of Truth</p>
+              <h3 class="ring-card__title">System Truth</h3>
+              <p class="ring-card__desc">Vision, architecture, standards, workflows, backlog, memory. The law of the land. Not written for Mia — written for Oracle itself. Mia reads it to understand the context she operates in.</p>
+            </div>
+          </li>
+          <li class="ring-card ring-card--2">
+            <span class="ring-card__num">2</span>
+            <div class="ring-card__content">
+              <p class="ring-card__label">Ring Two · Agent Instruction</p>
+              <h3 class="ring-card__title">Agent Instruction</h3>
+              <p class="ring-card__desc">Defines how Mia behaves inside the system truth and how she enters different operating modes.</p>
+            </div>
+          </li>
+          <li class="ring-card ring-card--3">
+            <span class="ring-card__num">3</span>
+            <div class="ring-card__content">
+              <p class="ring-card__label">Ring Three · Execution Discipline</p>
+              <h3 class="ring-card__title">Execution</h3>
+              <p class="ring-card__desc">Prevents drift, fog, and fake completion. Mia does not improvise output format. She does not self-certify completion. Templates enforce structure. Checklists enforce verification.</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 

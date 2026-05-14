@@ -61,6 +61,7 @@ jobs:
               if (error.status === 404) {
                 core.warning('GitHub Pages is not enabled for this repository; skipping deployment.');
                 core.setOutput('enabled', 'false');
+                core.setOutput('settings_url', `https://github.com/${context.repo.owner}/${context.repo.repo}/settings/pages`);
                 return;
               }
 
@@ -79,5 +80,5 @@ jobs:
             echo "## GitHub Pages deployment skipped"
             echo
             echo "GitHub Pages is not enabled for this repository."
-            echo "Enable it in Settings > Pages to restore automatic deployments."
+            echo "Enable it in [Settings > Pages](${{ steps.pages.outputs.settings_url }}) to restore automatic deployments."
           } >> "$GITHUB_STEP_SUMMARY"

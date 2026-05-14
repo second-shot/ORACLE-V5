@@ -1,21 +1,34 @@
-# Oracle
+# ORACLE V5
 
-Oracle is the operating system.
-It holds standards, workflows, memory, and the structures that keep work coherent.
+ORACLE V5 is a React + Vite application with an Oracle-themed interface and routing flow for running and reviewing outputs.
 
-Mia is the active agent within Oracle.
-She audits, proposes, organizes, documents, and helps Oracle evolve.
+## Tech Stack
+- React 18
+- React Router
+- Framer Motion
+- Vite
 
-## Structure
-- `oracle/docs/` — system-level documentation
-- `oracle/mia/` — Mia's operating layer
+## Local Development
+From the repository root:
 
-## Start Here
-1. Read `oracle/docs/vision.md`
-2. Read `oracle/docs/standards.md`
-3. Read `oracle/docs/architecture.md`
-4. Read `oracle/mia/README.md`
+1. Install dependencies:
+   - `npm ci`
+2. Start the dev server:
+   - `npm run dev`
+3. Build for production:
+   - `npm run build`
+4. Preview the production build:
+   - `npm run preview`
 
-## Core Rule
-Oracle defines the system.
-Mia operates within it.
+## App Routes
+- `/` — entry screen
+- `/run` — run flow
+- `/home` — home view
+- `/missions` — missions view
+- `/panel` — control panel
+- `/output/:id` — output detail page
+
+## Repository Notes
+- `src/` contains the React app (pages, components, styles, and libraries).
+- `oracle/docs/` contains system-level documentation.
+- `oracle/mia/` contains Mia-specific documentation and operating context.

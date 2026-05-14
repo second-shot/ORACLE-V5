@@ -46,6 +46,38 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Check GitHub Pages availability
+        id: pages
+        uses: actions/github-script@v7
+        with:
+          script: |
+            try {
+              await github.rest.repos.getPages({
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              });
+              core.setOutput('enabled', 'true');
+            } catch (error) {
+              if (error.status === 404) {
+                core.warning('GitHub Pages is not enabled for this repository; skipping deployment.');
+                core.setOutput('enabled', 'false');
+                return;
+              }
+
+              throw error;
+            }
+
       - name: Deploy to GitHub Pages
+        if: steps.pages.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Summarize skipped deployment
+        if: steps.pages.outputs.enabled != 'true'
+        run: |
+          {
+            echo "## GitHub Pages deployment skipped"
+            echo
+            echo "GitHub Pages is not enabled for this repository."
+            echo "Enable it in Settings > Pages to restore automatic deployments."
+          } >> "$GITHUB_STEP_SUMMARY"

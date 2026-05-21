@@ -47,26 +47,26 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout (rerun failed jobs safeguard)
-        if: github.run_attempt != '1'
+        if: github.run_attempt > 1
         uses: actions/checkout@v4
 
       - name: Set up Node (rerun failed jobs safeguard)
-        if: github.run_attempt != '1'
+        if: github.run_attempt > 1
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
       - name: Install dependencies (rerun failed jobs safeguard)
-        if: github.run_attempt != '1'
+        if: github.run_attempt > 1
         run: npm ci
 
       - name: Build (rerun failed jobs safeguard)
-        if: github.run_attempt != '1'
+        if: github.run_attempt > 1
         run: npm run build
 
       - name: Upload artifact (rerun failed jobs safeguard)
-        if: github.run_attempt != '1'
+        if: github.run_attempt > 1
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist

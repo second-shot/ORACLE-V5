@@ -1,16 +1,18 @@
+import { STORAGE_KEYS } from "./storageKeys.js";
+
 // Archive — localStorage persistence with findRelated() memory scoring
 // V2.1 spec: memory_score = (intent match → +2) + (per signal overlap → +1)
 // Minimum threshold: memory_score >= 3
 // Returns single highest-scoring match, tie-broken by createdAt descending
 // Cap: 100 objects (FIFO eviction)
 
-const ARCHIVE_KEY = "oracle-v5-archive";
+const ARCHIVE_KEY = STORAGE_KEYS.archive;
 const ARCHIVE_CAP = 100;
 
 // ── Input history ─────────────────────────────────────────────────────────────
 // Persists last 10 raw input strings for quick re-submission.
 
-const HISTORY_KEY = "oracle-v5-input-history";
+const HISTORY_KEY = STORAGE_KEYS.inputHistory;
 const HISTORY_CAP = 10;
 
 export function loadInputHistory() {

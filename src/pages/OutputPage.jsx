@@ -1,8 +1,9 @@
 import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { SurfaceCard } from "../components/SurfaceCard.jsx";
+import { STORAGE_KEYS } from "../lib/storageKeys.js";
 
-const ARCHIVE_KEY = "oracle-v5-archive";
+const ARCHIVE_KEY = STORAGE_KEYS.archive;
 
 function loadArchiveObjects() {
   try {
@@ -29,7 +30,7 @@ export default function OutputPage() {
             has been cleared.
           </p>
           <Link to="/run" className="output-back">
-            ← Back to Oracle
+            ← Back to ORA-CALL
           </Link>
         </div>
       </main>

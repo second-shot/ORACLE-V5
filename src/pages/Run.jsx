@@ -111,7 +111,7 @@ export default function Run() {
             type="submit"
             className="oracle-submit"
             disabled={!input.trim()}
-            aria-label="Run Oracle"
+            aria-label="Run ORA-CALL"
           >
             Run
           </button>
@@ -151,7 +151,7 @@ export default function Run() {
       <section
         className="oracle-output-zone"
         aria-live="polite"
-        aria-label="Oracle outputs"
+        aria-label="ORA-CALL outputs"
       >
         <AnimatePresence>
           {objects.map((obj) => (

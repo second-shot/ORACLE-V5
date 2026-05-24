@@ -1,6 +1,6 @@
-# ORACLE V5
+# ORA-CALL
 
-ORACLE V5 is a React + Vite application with an Oracle-themed interface and routing flow for running and reviewing outputs.
+ORA-CALL is a React + Vite application with an Oracle-themed interface and routing flow for running and reviewing outputs.
 
 ## Tech Stack
 - React 18

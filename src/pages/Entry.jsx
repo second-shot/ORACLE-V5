@@ -19,7 +19,7 @@ export default function Entry() {
 
       <section className="entry__panel">
         <div className="entry__orb" aria-hidden="true" />
-        <p className="entry__eyebrow">Oracle</p>
+        <p className="entry__eyebrow">ORA-CALL</p>
         <h1 className="entry__title">Enter the threshold.</h1>
         <p className="entry__copy">
           One input. One presence. Then straight into execution.
@@ -27,7 +27,7 @@ export default function Entry() {
 
         <form className="entry__form" onSubmit={handleSubmit}>
           <label className="sr-only" htmlFor="entry-input">
-            Oracle entry input
+            ORA-CALL entry input
           </label>
           <input
             id="entry-input"

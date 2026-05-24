@@ -21,8 +21,9 @@ _DOMAIN_KEYWORDS: dict[Domain, list[str]] = {
         "invoice", "value", "sell", "sold", "market", "worth",
     ],
     "proposal": [
-        "proposal", "pitch", "brief", "commission", "commission brief",
+        "proposal", "proposals", "pitch", "brief", "commission", "commission brief",
         "application", "residency", "grant", "funding", "submit",
+        "expand concept", "agent needs",
     ],
     "archive": [
         "archive", "record", "document", "scan", "photograph", "provenance",
@@ -124,6 +125,11 @@ def _tokenise(text: str) -> set[str]:
     text = text.lower()
     text = re.sub(r"[^\w\s]", " ", text)
     words = text.split()
-    unigrams = set(words)
+    singularised = {
+        word[:-1]
+        for word in words
+        if len(word) > 3 and word.endswith("s")
+    }
+    unigrams = set(words) | singularised
     bigrams = {f"{words[i]} {words[i+1]}" for i in range(len(words) - 1)}
     return unigrams | bigrams

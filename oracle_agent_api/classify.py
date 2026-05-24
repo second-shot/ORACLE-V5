@@ -63,6 +63,13 @@ _DOMAIN_TO_WORKFLOW: dict[Domain, Workflow] = {
     "unclassified": "unrouted",
 }
 
+_SINGULAR_KEYWORDS = {
+    keyword
+    for keywords in _DOMAIN_KEYWORDS.values()
+    for keyword in keywords
+    if " " not in keyword
+}
+
 
 # ---------------------------------------------------------------------------
 # Classifier
@@ -125,11 +132,16 @@ def _tokenise(text: str) -> set[str]:
     text = text.lower()
     text = re.sub(r"[^\w\s]", " ", text)
     words = text.split()
-    singularised = {
+    singularized = {
         word[:-1]
         for word in words
-        if len(word) > 3 and word.endswith("s")
+        if (
+            len(word) > 3
+            and word.endswith("s")
+            and not word.endswith(("ss", "us"))
+            and word[:-1] in _SINGULAR_KEYWORDS
+        )
     }
-    unigrams = set(words) | singularised
+    unigrams = set(words) | singularized
     bigrams = {f"{words[i]} {words[i+1]}" for i in range(len(words) - 1)}
     return unigrams | bigrams

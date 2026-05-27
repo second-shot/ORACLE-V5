@@ -1,6 +1,6 @@
-# ORACLE V5
+# ORA-CALL
 
-ORACLE V5 is a focused React + Vite app for transforming raw input into structured Oracle outputs, reviewing decisions, and tracking operational drafts.
+ORA-CALL is a focused React + Vite app for transforming raw input into structured Oracle outputs, reviewing decisions, and tracking operational drafts.
 
 ## App Profile
 

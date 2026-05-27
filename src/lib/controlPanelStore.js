@@ -1,8 +1,10 @@
+import { STORAGE_KEYS } from "./storageKeys.js";
+
 // ── Control Panel Store ──────────────────────────────────────────────────────
 // Persists drafts and logs in localStorage.
 
-const DRAFTS_KEY = "oracle-v5-cp-drafts";
-const LOGS_KEY   = "oracle-v5-cp-logs";
+const DRAFTS_KEY = STORAGE_KEYS.controlPanelDrafts;
+const LOGS_KEY   = STORAGE_KEYS.controlPanelLogs;
 const DRAFTS_CAP = 200;
 const LOGS_CAP   = 500;
 

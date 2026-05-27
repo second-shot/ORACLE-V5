@@ -10,10 +10,10 @@ function ShellLayout() {
   return (
     <>
       <header className="oracle-header">
-        <NavLink to="/" className="oracle-wordmark" aria-label="Oracle home">
-          ORACLE
+        <NavLink to="/" className="oracle-wordmark" aria-label="ORA-CALL home">
+          ORA-CALL
         </NavLink>
-        <span className="oracle-version">V5</span>
+        <span className="oracle-version">Live</span>
         <nav className="oracle-nav" aria-label="Main navigation">
           <NavLink
             to="/run"
